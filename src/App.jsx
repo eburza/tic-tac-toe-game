@@ -4,14 +4,21 @@ import GameStart from './GameStart'
 
 export default function App() {
 
-  const [ gameStart, setGameStart ] = useState(false)
+  const [ gameCpu, setGameCpu ] = useState(false)
+  const [ gamePlayer, setGamePlayer ] = useState(false)
 
-  function handleGameStartChange(isOn) {
-    setGameStart(isOn)
+
+  function onGameCpuChange(gameStatus) {
+    setGameCpu(gameStatus)
+  }
+
+  function onGamePlayerChange(gameStatus) {
+    setGamePlayer(gameStatus)
   }
 
   return (
-    <GameContext.Provider value={ {gameStart, handleGameStartChange} }>
+    <GameContext.Provider 
+    value={{ gameCpu, onGameCpuChange, gamePlayer, onGamePlayerChange }}>
       <GameStart
       />
     </GameContext.Provider>
