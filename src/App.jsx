@@ -18,9 +18,11 @@ export default function App() {
 
   return (
     <GameContext.Provider 
-    value={{ gameCpu, onGameCpuChange, gamePlayer, onGamePlayerChange }}>
-      <GameStart
-      />
+    value={{ 
+      gameCpu, onGameCpuChange, 
+      gamePlayer, onGamePlayerChange
+    }}>
+      <GameStart />
     </GameContext.Provider>
   )
 }
