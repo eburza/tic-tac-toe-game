@@ -3,6 +3,7 @@ import GameContext from './Context'
 import Logo from './assets/logo.svg'
 // import GameStart from './GameStart'
 import Game from './Game'
+import { boardArray } from './data/boardArray'
 
 export default function App() {
 
@@ -10,7 +11,9 @@ export default function App() {
   const [ gamePlayer, setGamePlayer ] = useState(false)
   const [ playerX, setPlayerX ] = useState(true)
   const [ isXTurn, setIsXTurn ] = useState(true)
-  // const [ board, setBoard ] = useState(Array(9).fill(null))
+  const [ board, setBoard ] = useState(boardArray)
+
+  console.log("Initial boardArray:", boardArray)
 
   useEffect( () => {
     console.log(playerX)
@@ -35,13 +38,22 @@ export default function App() {
     console.log(`is x turn: ${isXTurn}`)
   }
 
+  function onPlayerMove(tileId) {
+    setBoard(prevBoard => prevBoard.map(tile => 
+      tile.id === tileId ? {...tile, isHeld: true, content: isXTurn ? 'X' : 'O'} : tile
+    ))
+    onTurnChange()
+  }
+
   return (
     <GameContext.Provider 
     value={{ 
       onGameCpuChange, 
       onGamePlayerChange, 
       onPlayerChange,
-      onTurnChange, isXTurn
+      onTurnChange, isXTurn,
+      onPlayerMove,
+      board, setBoard
     }}>
       <img src={Logo} alt="Tic Tac Toe logo"/>
       {/* <GameStart /> */}

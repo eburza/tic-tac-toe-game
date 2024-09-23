@@ -1,22 +1,35 @@
 import { useContext } from 'react'
 import GameContext from '../Context'
-import { boardArray } from '../data/boardArray'
+import Tile from './Tile'
 
 export default function Board() {
 
-    const { onTurnChange } = useContext(GameContext)
+    const { 
+        onPlayerMove, 
+        board,
+    } = useContext(GameContext)
 
-    function handleTurnChange() {
-        onTurnChange()
-    }
+    function handleChange(id) {
+        onPlayerMove(id);
+      }
 
-    const boardTiles = boardArray.map( tile => (
-        <button 
-        className='game-tile' 
-        key={`tile-${tile.id}`}
-        onClick={handleTurnChange}>
-            {tile.tile}
-        </button>
+    // function holdTile(id) {
+    //     setBoard(prevBoard => prevBoard.map( tile => 
+    //       tile.id === id ? 
+    //       {...tile, isHeld: !tile.isHeld} : 
+    //       tile
+    //     ))
+    //   }
+
+    const boardTiles = board.map( tileEl => (
+        <Tile 
+            className='game-tile'
+            key={`tile-${tileEl.id}`}
+            id={`tile-${tileEl.id}`}
+            isHeld={tileEl.isHeld}
+            handleClick={() => handleChange(tileEl.id)}
+            tileContent={tileEl.content || ''}
+        />
     ))
 
     return (
