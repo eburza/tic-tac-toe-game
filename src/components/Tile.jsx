@@ -11,7 +11,8 @@ export default function Tile({ className, handleClick, tileContent, id, isHeld})
         id={id}
         className={className}
         onClick={handleClick}
-        style={styles}>
+        style={styles}
+        disabled={isHeld}>
             {tileContent}
         </button>
     )
