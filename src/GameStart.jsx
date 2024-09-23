@@ -1,4 +1,3 @@
-import Logo from './assets/logo.svg'
 import { useContext } from 'react'
 import GameContext from './Context'
 import PickPlayer from './components/PickPlayer'
@@ -10,7 +9,6 @@ export default function GameStart() {
 
     return (
         <>
-            <img src={Logo} alt="Tic Tac Toe logo"/>
             <PickPlayer />
             <Button 
                 onGameStartChange={onGameCpuChange}
