@@ -13,14 +13,6 @@ export default function Board() {
         onPlayerMove(id);
       }
 
-    // function holdTile(id) {
-    //     setBoard(prevBoard => prevBoard.map( tile => 
-    //       tile.id === id ? 
-    //       {...tile, isHeld: !tile.isHeld} : 
-    //       tile
-    //     ))
-    //   }
-
     const boardTiles = board.map( tileEl => (
         <Tile 
             className='game-tile'

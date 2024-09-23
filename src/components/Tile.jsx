@@ -20,7 +20,6 @@ export default function Tile({ className, handleClick, tileContent, id, isHeld})
 Tile.propTypes = {
     handleClick: PropTypes.func,
     tileContent: PropTypes.string,
-    key: PropTypes.string,
     id: PropTypes.string,
     className: PropTypes.string,
     isHeld: PropTypes.bool

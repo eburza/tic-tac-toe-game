@@ -13,8 +13,6 @@ export default function App() {
   const [ isXTurn, setIsXTurn ] = useState(true)
   const [ board, setBoard ] = useState(boardArray)
 
-  console.log("Initial boardArray:", boardArray)
-
   useEffect( () => {
     console.log(playerX)
   }, [playerX])
