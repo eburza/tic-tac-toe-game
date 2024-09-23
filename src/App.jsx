@@ -9,6 +9,7 @@ export default function App() {
   const [ gameCpu, setGameCpu ] = useState(false)
   const [ gamePlayer, setGamePlayer ] = useState(false)
   const [ playerX, setPlayerX ] = useState(true)
+  const [ isXTurn, setIsXTurn ] = useState(true)
   // const [ board, setBoard ] = useState(Array(9).fill(null))
 
   useEffect( () => {
@@ -29,12 +30,18 @@ export default function App() {
     setPlayerX(playerStatus)
   }
 
+  function onTurnChange() {
+    setIsXTurn( prevTurn => !prevTurn)
+    console.log(`is x turn: ${isXTurn}`)
+  }
+
   return (
     <GameContext.Provider 
     value={{ 
       onGameCpuChange, 
       onGamePlayerChange, 
-      onPlayerChange
+      onPlayerChange,
+      onTurnChange, isXTurn
     }}>
       <img src={Logo} alt="Tic Tac Toe logo"/>
       {/* <GameStart /> */}
