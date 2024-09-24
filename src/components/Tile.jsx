@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-export default function Tile({ className, handleClick, tileContent, id, isHeld}) {
+export default function Tile({ handleClick, tileContent, id, isHeld}) {
     
     const styles = {
         backgroundColor: isHeld ? "#59E391" : "white"
@@ -9,7 +9,7 @@ export default function Tile({ className, handleClick, tileContent, id, isHeld})
     return(
         <button 
         id={id}
-        className={className}
+        className='game-tile'
         onClick={handleClick}
         style={styles}
         disabled={isHeld}>

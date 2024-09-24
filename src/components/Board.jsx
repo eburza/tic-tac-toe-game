@@ -15,7 +15,6 @@ export default function Board() {
 
     const boardTiles = board.map( tileEl => (
         <Tile 
-            className='game-tile'
             key={`tile-${tileEl.id}`}
             id={`tile-${tileEl.id}`}
             isHeld={tileEl.isHeld}

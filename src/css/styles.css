@@ -13,4 +13,16 @@ body {
   line-height: 1.5;
 }
 
+#game-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.game-tile {
+  width: 6rem;
+  height: 6rem;
+  flex-shrink: 0;
+}
+
 /*# sourceMappingURL=styles.css.map */
