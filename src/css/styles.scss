@@ -1,0 +1,16 @@
+
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Outfit", system-ui, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+}
