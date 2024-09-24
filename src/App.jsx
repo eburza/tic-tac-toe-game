@@ -43,6 +43,13 @@ export default function App() {
     onTurnChange()
   }
 
+  function onGameReset() {
+    setIsXTurn(true)
+    setBoard(prevBoard => prevBoard.map( tile => ({
+      ...tile, isHeld: false, content: ''
+    })))
+  }
+
   return (
     <GameContext.Provider 
     value={{ 
@@ -51,7 +58,8 @@ export default function App() {
       onPlayerChange,
       onTurnChange, isXTurn,
       onPlayerMove,
-      board, setBoard
+      board, setBoard,
+      onGameReset
     }}>
       <img src={Logo} alt="Tic Tac Toe logo"/>
       {/* <GameStart /> */}
