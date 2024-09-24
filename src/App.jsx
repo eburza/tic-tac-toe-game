@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import GameContext from './Context'
 import Logo from './assets/logo.svg'
 // import GameStart from './GameStart'
@@ -13,42 +13,42 @@ export default function App() {
   const [ isXTurn, setIsXTurn ] = useState(true)
   const [ board, setBoard ] = useState(boardArray)
 
-  useEffect( () => {
-    console.log(playerX)
-  }, [playerX])
-
-  function onGameCpuChange(gameStatus) {
+  const onGameCpuChange = useCallback((gameStatus) => {
     setGameCpu(gameStatus)
-    console.log(`game cpu ${gameCpu}`)
-  }
+    console.log(`game cpu: ${gameCpu}`)
+  }, [])
 
-  function onGamePlayerChange(gameStatus) {
+  const onGamePlayerChange = useCallback((gameStatus) => {
     setGamePlayer(gameStatus)
-    console.log(`game player ${gamePlayer}`)
-  }
+    console.log(`game player: ${gamePlayer}`)
+  }, [])
 
-  function onPlayerChange(playerStatus) {
+  const onPlayerChange = useCallback((playerStatus) => {
     setPlayerX(playerStatus)
-  }
+    console.log(`is it player x: ${playerX}`)
+  }, [])
 
-  function onTurnChange() {
-    setIsXTurn( prevTurn => !prevTurn)
-    console.log(`is x turn: ${isXTurn}`)
-  }
+  const onTurnChange = useCallback(() => {
+    setIsXTurn((prevTurn) => {
+      const newTurn = !prevTurn
+      console.log(`is x turn: ${newTurn}`)
+      return newTurn
+    })
+  }, [])
 
-  function onPlayerMove(tileId) {
+  const onPlayerMove = useCallback((tileId) => {
     setBoard(prevBoard => prevBoard.map(tile => 
       tile.id === tileId ? {...tile, isHeld: true, content: isXTurn ? 'X' : 'O'} : tile
     ))
     onTurnChange()
-  }
+  }, [isXTurn, onTurnChange])
 
-  function onGameReset() {
+  const onGameReset = useCallback(() => {
     setIsXTurn(true)
     setBoard(prevBoard => prevBoard.map( tile => ({
       ...tile, isHeld: false, content: ''
     })))
-  }
+  }, [])
 
   return (
     <GameContext.Provider 
