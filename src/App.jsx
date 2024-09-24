@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import GameContext from './Context'
 import Logo from './assets/logo.svg'
 // import GameStart from './GameStart'
@@ -13,16 +13,45 @@ export default function App() {
   const [ playerX, setPlayerX ] = useState(true)
   const [ isXTurn, setIsXTurn ] = useState(true)
   const [ board, setBoard ] = useState(boardArray)
+  const [ gameState, setGameState ] = useState('')
 
-  const onGameCpuChange = useCallback((gameStatus) => {
+  const checkGameState = useCallback( () => {
+    let checkWinner = ''
+    for( let [a, b, c] of winPattern ) {
+      if ( board[a].content && board[b].content === board[a].content && board[c].content === board[a].content) {
+        checkWinner = `player ${board[a].content} won`
+        return checkWinner
+      }
+
+      if ( board.every(tile => tile.isHeld) ) {
+        checkWinner = `it's a draw`
+        return checkWinner
+      }
+    }
+    return checkWinner
+  }, [board, gameState])
+
+  useEffect( () => {
+    const newGameState = checkGameState()
+    
+    if (newGameState !== gameState) {
+      setGameState(newGameState)
+    }
+
+    console.log(gameState)
+    
+  }, [ board, gameState ])
+
+  function onGameCpuChange(gameStatus){
     setGameCpu(gameStatus)
     console.log(`game cpu: ${gameCpu}`)
-  }, [])
+  }
 
-  const onGamePlayerChange = useCallback((gameStatus) => {
+  function onGamePlayerChange(gameStatus) {
     setGamePlayer(gameStatus)
     console.log(`game player: ${gamePlayer}`)
-  }, [])
+  }
+
 
   const onPlayerChange = useCallback((playerStatus) => {
     setPlayerX(playerStatus)
@@ -42,7 +71,7 @@ export default function App() {
       tile.id === tileId ? {...tile, isHeld: true, content: isXTurn ? 'X' : 'O'} : tile
     ))
     onTurnChange()
-  }, [isXTurn, onTurnChange])
+  }, [isXTurn, onTurnChange, board])
 
   const onGameReset = useCallback(() => {
     setIsXTurn(true)
@@ -60,7 +89,7 @@ export default function App() {
       onTurnChange, isXTurn,
       onPlayerMove,
       board, setBoard,
-      onGameReset
+      onGameReset,
     }}>
       <img src={Logo} alt="Tic Tac Toe logo"/>
       {/* <GameStart /> */}
