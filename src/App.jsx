@@ -22,7 +22,6 @@ export default function App() {
         checkWinner = `player ${board[a].content} won`
         return checkWinner
       }
-
       if ( board.every(tile => tile.isHeld) ) {
         checkWinner = `it's a draw`
         return checkWinner
@@ -37,9 +36,7 @@ export default function App() {
     if (newGameState !== gameState) {
       setGameState(newGameState)
     }
-
     console.log(gameState)
-    
   }, [ board, gameState ])
 
   function onGameCpuChange(gameStatus){
@@ -51,7 +48,6 @@ export default function App() {
     setGamePlayer(gameStatus)
     console.log(`game player: ${gamePlayer}`)
   }
-
 
   const onPlayerChange = useCallback((playerStatus) => {
     setPlayerX(playerStatus)
@@ -76,7 +72,7 @@ export default function App() {
   const onGameReset = useCallback(() => {
     setIsXTurn(true)
     setBoard(prevBoard => prevBoard.map( tile => ({
-      ...tile, isHeld: false, content: tile.id // content: ''
+      ...tile, isHeld: false, content: ''
     })))
   }, [])
 
