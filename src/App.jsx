@@ -4,6 +4,7 @@ import Logo from './assets/logo.svg'
 // import GameStart from './GameStart'
 import Game from './Game'
 import { boardArray } from './data/boardArray'
+import { winPattern } from './data/winPattern'
 
 export default function App() {
 
@@ -46,7 +47,7 @@ export default function App() {
   const onGameReset = useCallback(() => {
     setIsXTurn(true)
     setBoard(prevBoard => prevBoard.map( tile => ({
-      ...tile, isHeld: false, content: ''
+      ...tile, isHeld: false, content: tile.id // content: ''
     })))
   }, [])
 
