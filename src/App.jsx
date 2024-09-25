@@ -3,7 +3,7 @@ import GameContext from './Context'
 import { boardArray } from './data/boardArray'
 import { winPattern } from './data/winPattern'
 import Logo from './assets/logo.svg'
-// import GameStart from './GameStart'
+import GameStart from './GameStart'
 import Game from './Game'
 import Modal from './components/Modal'
 
@@ -21,6 +21,30 @@ export default function App() {
   const [ tiesScore, setTiesScore ] = useState(0)
   const [ modalState, setModalState ] = useState(false)
 
+  //on game start
+  const onPlayerChange = useCallback((state) => {
+    setPlayerX(state)
+  }, [])
+
+  function onGameCpuChange(gameStatus){
+    setGameCpu(gameStatus)
+    setGamePlayer(false)
+  }
+
+  function onGamePlayerChange(gameStatus) {
+    setGamePlayer(gameStatus)
+    setGameCpu(false)
+  }
+
+  useEffect(() => {
+    console.log(`Player X state updated: ${playerX}`)
+  }, [playerX])
+
+  useEffect(() => {
+    console.log(`Game started. game player:${gamePlayer}, game cpu ${gameCpu}`)
+  }, [gamePlayer, gameCpu])
+
+  //on current game
   const checkGameState = useCallback( () => {
     let checkWinner = ''
     for( let [a, b, c] of winPattern ) {
@@ -62,21 +86,6 @@ export default function App() {
     console.log(gameState)
   }, [ board, gameState, checkScore ])
 
-  function onGameCpuChange(gameStatus){
-    setGameCpu(gameStatus)
-    console.log(`game cpu: ${gameCpu}`)
-  }
-
-  function onGamePlayerChange(gameStatus) {
-    setGamePlayer(gameStatus)
-    console.log(`game player: ${gamePlayer}`)
-  }
-
-  const onPlayerChange = useCallback((playerStatus) => {
-    setPlayerX(playerStatus)
-    console.log(`is it player x: ${playerX}`)
-  }, [])
-
   const onTurnChange = useCallback(() => {
     setIsXTurn((prevTurn) => {
       const newTurn = !prevTurn
@@ -113,7 +122,7 @@ export default function App() {
       playerXScore, playerOScore, tiesScore
     }}>
       <img src={Logo} alt="Tic Tac Toe logo"/>
-      {/* <GameStart /> */}
+      <GameStart />
       <Game />
       {modalState ? <Modal /> : ''}
     </GameContext.Provider>
