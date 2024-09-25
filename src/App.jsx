@@ -14,6 +14,9 @@ export default function App() {
   const [ isXTurn, setIsXTurn ] = useState(true)
   const [ board, setBoard ] = useState(boardArray)
   const [ gameState, setGameState ] = useState('')
+  const [ playerXScore, setPlayerXScore ] = useState(0)
+  const [ playerOScore, setPlayerOScore ] = useState(0)
+  const [ tiesScore, setTiesScore ] = useState(0)
 
   const checkGameState = useCallback( () => {
     let checkWinner = ''
@@ -30,18 +33,28 @@ export default function App() {
     return checkWinner
   }, [board, gameState])
 
-  const checkResult = useCallback( () => {
+  const checkScore = useCallback( () => {
+    const score = checkGameState()
 
-  }, [gameState])
+    if (score === `player X won`) {
+      setPlayerXScore( prevPlayerXScore => prevPlayerXScore + 1)
+    } else if (score === `player O won`) {
+      setPlayerOScore( prevPlayerOScore => prevPlayerOScore + 1)
+    } else if (score === `it's a draw`){
+      setTiesScore( prevTiesScore => prevTiesScore + 1)
+    }
+
+  }, [board, gameState])
 
   useEffect( () => {
     const newGameState = checkGameState()
     
     if (newGameState !== gameState) {
       setGameState(newGameState)
+      checkScore()
     }
     console.log(gameState)
-  }, [ board, gameState ])
+  }, [ board, gameState, checkScore])
 
   function onGameCpuChange(gameStatus){
     setGameCpu(gameStatus)
@@ -90,6 +103,7 @@ export default function App() {
       onPlayerMove,
       board, setBoard,
       onGameReset,
+      playerXScore, playerOScore, tiesScore
     }}>
       <img src={Logo} alt="Tic Tac Toe logo"/>
       {/* <GameStart /> */}

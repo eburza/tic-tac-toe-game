@@ -1,21 +1,26 @@
 import ResultElement from './ResultElement'
+import { useContext } from 'react'
+import GameContext from '../Context'
 
 export default function GameResults() {
+
+    const { playerXScore, playerOScore, tiesScore } = useContext(GameContext)
+
     return(
         <>
             <ResultElement 
                 text='X'
                 player='(P1)'
-                counter={`0`}
+                counter={playerXScore}
             />
             <ResultElement 
                 text='TIES'
-                counter={`0`}
+                counter={tiesScore}
             />
             <ResultElement 
                 text='O'
                 player='(P2)'
-                counter={`0`}
+                counter={playerOScore}
             />
         </>
     )
