@@ -1,12 +1,19 @@
-import Button from "./Button"
+import ModalElement from './ModalElement'
 
 export default function Modal() {
+
+    function onClick() {
+        console.log('clicked')
+    }
+
     return (
-        <div>
-            <p>subHeadText</p>
-            <h1>HeadText</h1>
-            <Button />
-            <Button />
-        </div>
+        <ModalElement 
+        subHeadText='subHeadText'
+        headText='HeadText'
+        buttonText='buttonText'
+        handleClick={onClick}
+        className='buttonClass'
+        buttonId='buttonId'
+        />
     )
 }

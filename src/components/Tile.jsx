@@ -22,6 +22,5 @@ Tile.propTypes = {
     handleClick: PropTypes.func,
     tileContent: PropTypes.string,
     id: PropTypes.string,
-    className: PropTypes.string,
     isHeld: PropTypes.bool
 }

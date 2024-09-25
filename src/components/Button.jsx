@@ -8,9 +8,8 @@ export default function Button({ buttonText, buttonClass, buttonId, handleClick 
 }
 
 Button.propTypes = {
-    onGameStartChange: PropTypes.func,
-    buttonText: PropTypes.string.isRequired,
-    buttonClass: PropTypes.string.isRequired,
+    buttonText: PropTypes.string,
+    buttonClass: PropTypes.string,
     buttonId: PropTypes.string,
     handleClick: PropTypes.func
 }

@@ -1,10 +1,11 @@
 import { useState, useEffect, useCallback } from 'react'
 import GameContext from './Context'
+import { boardArray } from './data/boardArray'
+import { winPattern } from './data/winPattern'
 import Logo from './assets/logo.svg'
 // import GameStart from './GameStart'
 import Game from './Game'
-import { boardArray } from './data/boardArray'
-import { winPattern } from './data/winPattern'
+import Modal from './components/Modal'
 
 export default function App() {
 
@@ -17,7 +18,7 @@ export default function App() {
   const [ playerXScore, setPlayerXScore ] = useState(0)
   const [ playerOScore, setPlayerOScore ] = useState(0)
   const [ tiesScore, setTiesScore ] = useState(0)
-  const [ modalState, setModalState ] = useState(false)
+  // const [ modalState, setModalState ] = useState(false)
 
   const checkGameState = useCallback( () => {
     let checkWinner = ''
@@ -32,7 +33,7 @@ export default function App() {
       }
     }
     return checkWinner
-  }, [gameState])
+  }, [board, gameState])
 
   const checkScore = useCallback( () => {
     const score = checkGameState()
@@ -109,6 +110,7 @@ export default function App() {
       <img src={Logo} alt="Tic Tac Toe logo"/>
       {/* <GameStart /> */}
       <Game />
+      <Modal />
     </GameContext.Provider>
   )
 }
