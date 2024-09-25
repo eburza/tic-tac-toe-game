@@ -30,6 +30,10 @@ export default function App() {
     return checkWinner
   }, [board, gameState])
 
+  const checkResult = useCallback( () => {
+
+  }, [gameState])
+
   useEffect( () => {
     const newGameState = checkGameState()
     
