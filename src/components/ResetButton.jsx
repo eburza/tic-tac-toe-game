@@ -3,10 +3,10 @@ import GameContext from '../Context'
 
 export default function ResetGame() {
 
-    const { onGameReset } = useContext(GameContext)
+    const { onGameResetButton } = useContext(GameContext)
 
     function handleResetButton() {
-        onGameReset()
+        onGameResetButton()
     }
 
     return(

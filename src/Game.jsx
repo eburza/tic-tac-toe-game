@@ -1,6 +1,6 @@
 import Board from './components/Board'
 import PlayerTurn from './components/PlayerTurn'
-import ResetGame from './components/ResetGame'
+import ResetButton from './components/ResetButton'
 import GameResults from './components/GameResults'
 
 export default function Game() {
@@ -8,7 +8,7 @@ export default function Game() {
     return (
         <>
             <PlayerTurn />
-            <ResetGame />
+            <ResetButton />
             <Board />
             <GameResults />
         </>
