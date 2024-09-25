@@ -15,8 +15,8 @@ export default function App() {
   const [ gameOn, setGameOn ] = useState(false)
   const [ isXTurn, setIsXTurn ] = useState(true)
   const [ board, setBoard ] = useState(boardArray)
+  const [ gameWinner, setGameWinner ] = useState('')
   const [ gameState, setGameState ] = useState('')
-  const [ gameReset, setGameReset ] = useState(false)
   const [ playerXScore, setPlayerXScore ] = useState(0)
   const [ playerOScore, setPlayerOScore ] = useState(0)
   const [ tiesScore, setTiesScore ] = useState(0)
@@ -47,26 +47,57 @@ export default function App() {
   }, [gamePlayer, gameCpu])
 
   //reset game
-  const onGameReset = useCallback(() => {
+  // TO FIX: update game state and modal state. Now its not working correctly 
+  const onGameResetButton = useCallback(() => {
     setModalState(true)
+  }, [])
+
+  const onQuitGame = useCallback( () => {
+    setGameState('quit game')
+  }, [])
+
+  const onNewRound = useCallback( () => {
+    setGameState('new round')
+  }, [])
+  
+  const onCancelRestartGame = useCallback( () => {
+    setGameState('cancel restart')
+  }, [])
+  
+  const onRestartGame = useCallback( () => {
+    setGameState('restart game')
   }, [])
   
   useEffect( () => {
-    setGameReset(true)
-    setGameOn(false)
-    setIsXTurn(true)
-    setPlayerXScore(0)
-    setPlayerOScore(0)
-    setTiesScore(0)
-    setModalState(false)
-    setGameState('')
-    setBoard(prevBoard => prevBoard.map( tile => ({
-      ...tile, isHeld: false, content: ''
-    })))
-  }, [onGameReset])
+    if (gameState === 'quit game') {
+      setModalState(false)
+      setGameOn(false)
+      setIsXTurn(true)
+      setPlayerXScore(0)
+      setPlayerOScore(0)
+      setTiesScore(0)
+      setGameWinner('')
+      setBoard(prevBoard => prevBoard.map( tile => ({
+        ...tile, isHeld: false, content: ''
+      })))
+    } else if (gameState === 'new round') {
+        setModalState(false)
+        setGameWinner('')
+        setBoard(prevBoard => prevBoard.map( tile => ({
+          ...tile, isHeld: false, content: ''
+        })))
+    } else if (gameState === 'cancel restart') {
+        setModalState(false)
+    } else if (gameState === 'restart game') {
+        setModalState(false)
+        setBoard(prevBoard => prevBoard.map( tile => ({
+          ...tile, isHeld: false, content: ''
+        })))
+    }
+  }, [onQuitGame, onNewRound, onCancelRestartGame, onRestartGame, gameState])
 
   //on current game
-  const checkGameState = useCallback( () => {
+  const checkGameWinner = useCallback( () => {
     let checkWinner = ''
     for( let [a, b, c] of winPattern ) {
       if ( board[a].content && board[b].content === board[a].content && board[c].content === board[a].content) {
@@ -79,10 +110,10 @@ export default function App() {
       }
     }
     return checkWinner
-  }, [board, gameState])
+  }, [board, gameWinner])
 
   const checkScore = useCallback( () => {
-    const score = checkGameState()
+    const score = checkGameWinner()
 
     if (score === `player X won`) {
       setModalState(true)
@@ -95,17 +126,17 @@ export default function App() {
       setTiesScore( prevTiesScore => prevTiesScore + 1)
     }
 
-  }, [board, gameState, modalState])
+  }, [board, gameWinner, modalState])
 
   useEffect( () => {
-    const newGameState = checkGameState()
+    const newGameState = checkGameWinner()
     
-    if (newGameState !== gameState) {
-      setGameState(newGameState)
+    if (newGameState !== gameWinner) {
+      setGameWinner(newGameState)
       checkScore()
     }
-    console.log(gameState)
-  }, [ board, gameState, checkScore ])
+    console.log(gameWinner)
+  }, [ board, gameWinner, checkScore ])
 
   const onTurnChange = useCallback(() => {
     setIsXTurn((prevTurn) => {
@@ -131,9 +162,9 @@ export default function App() {
       onTurnChange, isXTurn,
       onPlayerMove,
       setBoard, board,
-      onGameReset, gameReset,
-      checkGameState, 
-      playerXScore, playerOScore, tiesScore
+      onGameResetButton,
+      playerXScore, playerOScore, tiesScore,
+      onQuitGame, onNewRound, onCancelRestartGame, onRestartGame
     }}>
       <img src={Logo} alt="Tic Tac Toe logo"/>
       {gameOn ? '' : <GameStart />}
