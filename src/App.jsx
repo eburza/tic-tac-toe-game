@@ -46,6 +46,25 @@ export default function App() {
     console.log(`Game started. game player:${gamePlayer}, game cpu ${gameCpu}`)
   }, [gamePlayer, gameCpu])
 
+  //reset game
+  const onGameReset = useCallback(() => {
+    setModalState(true)
+  }, [])
+  
+  useEffect( () => {
+    setGameReset(true)
+    setGameOn(false)
+    setIsXTurn(true)
+    setPlayerXScore(0)
+    setPlayerOScore(0)
+    setTiesScore(0)
+    setModalState(false)
+    setGameState('')
+    setBoard(prevBoard => prevBoard.map( tile => ({
+      ...tile, isHeld: false, content: ''
+    })))
+  }, [onGameReset])
+
   //on current game
   const checkGameState = useCallback( () => {
     let checkWinner = ''
@@ -103,14 +122,6 @@ export default function App() {
     onTurnChange()
   }, [isXTurn, onTurnChange, board])
 
-  const onGameReset = useCallback(() => {
-    setGameReset(true)
-    setIsXTurn(true)
-    setBoard(prevBoard => prevBoard.map( tile => ({
-      ...tile, isHeld: false, content: ''
-    })))
-  }, [])
-
   return (
     <GameContext.Provider 
     value={{ 
@@ -121,6 +132,7 @@ export default function App() {
       onPlayerMove,
       setBoard, board,
       onGameReset, gameReset,
+      checkGameState, 
       playerXScore, playerOScore, tiesScore
     }}>
       <img src={Logo} alt="Tic Tac Toe logo"/>
