@@ -12,6 +12,7 @@ export default function App() {
   const [ gameCpu, setGameCpu ] = useState(false)
   const [ gamePlayer, setGamePlayer ] = useState(false)
   const [ playerX, setPlayerX ] = useState(true)
+  const [ gameOn, setGameOn ] = useState(false)
   const [ isXTurn, setIsXTurn ] = useState(true)
   const [ board, setBoard ] = useState(boardArray)
   const [ gameState, setGameState ] = useState('')
@@ -41,6 +42,7 @@ export default function App() {
   }, [playerX])
 
   useEffect(() => {
+    setGameOn( prevGameOnState => !prevGameOnState)
     console.log(`Game started. game player:${gamePlayer}, game cpu ${gameCpu}`)
   }, [gamePlayer, gameCpu])
 
@@ -122,8 +124,8 @@ export default function App() {
       playerXScore, playerOScore, tiesScore
     }}>
       <img src={Logo} alt="Tic Tac Toe logo"/>
-      <GameStart />
-      <Game />
+      {gameOn ? '' : <GameStart />}
+      {gameOn ? <Game /> : ''}
       {modalState ? <Modal /> : ''}
     </GameContext.Provider>
   )
