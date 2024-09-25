@@ -17,6 +17,7 @@ export default function App() {
   const [ playerXScore, setPlayerXScore ] = useState(0)
   const [ playerOScore, setPlayerOScore ] = useState(0)
   const [ tiesScore, setTiesScore ] = useState(0)
+  const [ modalState, setModalState ] = useState(false)
 
   const checkGameState = useCallback( () => {
     let checkWinner = ''
@@ -31,7 +32,7 @@ export default function App() {
       }
     }
     return checkWinner
-  }, [board, gameState])
+  }, [gameState])
 
   const checkScore = useCallback( () => {
     const score = checkGameState()
