@@ -15,10 +15,11 @@ export default function App() {
   const [ isXTurn, setIsXTurn ] = useState(true)
   const [ board, setBoard ] = useState(boardArray)
   const [ gameState, setGameState ] = useState('')
+  const [ gameReset, setGameReset ] = useState(false)
   const [ playerXScore, setPlayerXScore ] = useState(0)
   const [ playerOScore, setPlayerOScore ] = useState(0)
   const [ tiesScore, setTiesScore ] = useState(0)
-  // const [ modalState, setModalState ] = useState(false)
+  const [ modalState, setModalState ] = useState(false)
 
   const checkGameState = useCallback( () => {
     let checkWinner = ''
@@ -39,14 +40,17 @@ export default function App() {
     const score = checkGameState()
 
     if (score === `player X won`) {
+      setModalState(true)
       setPlayerXScore( prevPlayerXScore => prevPlayerXScore + 1)
     } else if (score === `player O won`) {
+      setModalState(true)
       setPlayerOScore( prevPlayerOScore => prevPlayerOScore + 1)
     } else if (score === `it's a draw`){
+      setModalState(true)
       setTiesScore( prevTiesScore => prevTiesScore + 1)
     }
 
-  }, [board, gameState])
+  }, [board, gameState, modalState])
 
   useEffect( () => {
     const newGameState = checkGameState()
@@ -56,7 +60,7 @@ export default function App() {
       checkScore()
     }
     console.log(gameState)
-  }, [ board, gameState, checkScore])
+  }, [ board, gameState, checkScore ])
 
   function onGameCpuChange(gameStatus){
     setGameCpu(gameStatus)
@@ -89,6 +93,7 @@ export default function App() {
   }, [isXTurn, onTurnChange, board])
 
   const onGameReset = useCallback(() => {
+    setGameReset(true)
     setIsXTurn(true)
     setBoard(prevBoard => prevBoard.map( tile => ({
       ...tile, isHeld: false, content: ''
@@ -103,14 +108,14 @@ export default function App() {
       onPlayerChange,
       onTurnChange, isXTurn,
       onPlayerMove,
-      board, setBoard,
-      onGameReset,
+      setBoard, board,
+      onGameReset, gameReset,
       playerXScore, playerOScore, tiesScore
     }}>
       <img src={Logo} alt="Tic Tac Toe logo"/>
       {/* <GameStart /> */}
       <Game />
-      <Modal />
+      {modalState ? <Modal /> : ''}
     </GameContext.Provider>
   )
 }

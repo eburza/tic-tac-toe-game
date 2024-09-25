@@ -1,30 +1,34 @@
 import PropTypes from 'react'
 import Button from './Button'
 
-export default function ModalElement( {subHeadText, headText, buttonId, buttonClass, handleClick, buttonText}) {
+export default function ModalElement( {subHeadText, headText, buttonOneId, buttonTwoId, buttonOneClassName, buttonTwoClassName, handleButtonOneClick, handleButtonTwoClick, buttonOneText, buttonTwoText}) {
     return(
         <div>
-            <p>{subHeadText}</p>
+            { subHeadText ? <p>{subHeadText}</p> : ''}
             <h1>{headText}</h1>
             <Button 
-                id={buttonId} 
-                className={buttonClass} 
-                onClick={handleClick}
-                buttonText={buttonText}/>
+                id={buttonOneId} 
+                className={buttonOneClassName} 
+                onClick={handleButtonOneClick}
+                buttonText={buttonOneText}/>
             <Button 
-                id={buttonId} 
-                className={buttonClass} 
-                onClick={handleClick}
-                buttonText={buttonText}/>
+                id={buttonTwoId} 
+                className={buttonTwoClassName} 
+                onClick={handleButtonTwoClick}
+                buttonText={buttonTwoText}/>
         </div>
     )
 }
 
 ModalElement.propTypes = {
-    handleClick: PropTypes.func,
+    handleButtonOneClick: PropTypes.func,
+    handleButtonTwoClick: PropTypes.func,
     subHeadText: PropTypes.string,
     headText: PropTypes.string,
-    buttonText: PropTypes.string,
-    buttonClass: PropTypes.string,
-    buttonId: PropTypes.string
+    buttonOneText: PropTypes.string,
+    buttonTwoText: PropTypes.string,
+    buttonOneId: PropTypes.string,
+    buttonTwoId: PropTypes.string,
+    buttonOneClassName: PropTypes.string,
+    buttonTwoClassName: PropTypes.string
 }
