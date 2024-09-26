@@ -4,7 +4,8 @@ import ModalElement from './ModalElement'
 
 export default function Modal() {
 
-    const { playerXScore, playerOScore, tiesScore, onQuitGame, onNewRound, onCancelRestartGame, onRestartGame, modalState } = useContext(GameContext)
+    const { state, onQuitGame, onNewRound, onCancelRestartGame, onRestartGame } = useContext(GameContext)
+    const { playerXScore, playerOScore, tiesScore, modalState } = state
 
     const handleQuitGame = () => {
         onQuitGame()
