@@ -6,19 +6,19 @@ export default function Modal() {
 
     const { playerXScore, playerOScore, tiesScore, onQuitGame, onNewRound, onCancelRestartGame, onRestartGame, modalState } = useContext(GameContext)
 
-    function handleQuitGame() {
+    const handleQuitGame = () => {
         onQuitGame()
     }
 
-    function handleNewRound() {
+    const handleNewRound = () => {
         onNewRound()
     }
 
-    function handleCancelRestartGame() {
+    const handleCancelRestartGame = () => {
         onCancelRestartGame()
     }
 
-    function handleRestartGame() {
+    const handleRestartGame = () => {
         onRestartGame()
     }
 
