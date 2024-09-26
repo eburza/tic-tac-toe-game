@@ -93,7 +93,6 @@ function gameReducer(state, action) {
     }
 }
 
-//TO DO: add dispach funtions
 export default function useGameState(initialBoard) {
     const [ state, dispatch ] = useReducer(gameReducer, {
         ...initialState,
@@ -175,7 +174,6 @@ export default function useGameState(initialBoard) {
         onUpdateScore,
         onCheckGameWinner
       }
-
 }
 
   
