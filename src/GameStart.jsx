@@ -5,13 +5,15 @@ import Button from './components/Button'
 
 export default function GameStart() {
 
-    const { onGameCpuChange, onGamePlayerChange} = useContext(GameContext)
+    const { onGameCpuChange, onGamePlayerChange, onStartGame} = useContext(GameContext)
 
     function handleGameCpuStart() {
+        onStartGame(`start game`)
         onGameCpuChange(true)
     }
 
     function handleGamePlayerStart() {
+        onStartGame(`start game`)
         onGamePlayerChange(true)
     }
 

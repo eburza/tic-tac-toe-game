@@ -47,7 +47,7 @@ export default function App() {
   }, [gamePlayer, gameCpu])
 
   //reset game
-  // TO FIX: update game state and modal state. Now its not working correctly 
+  // FIXME: update game state and modal state. Now its not working correctly 
   const onGameResetButton = useCallback(() => {
     setModalState(true)
   }, [])
@@ -67,8 +67,24 @@ export default function App() {
   const onRestartGame = useCallback( () => {
     setGameState('restart game')
   }, [])
+
+  const onStartGame = useCallback( () => {
+    setGameState('start game')
+  })
   
   useEffect( () => {
+    if (gameState === 'start game') {
+      setModalState(false)
+      setGameOn(true)
+      setIsXTurn(true)
+      setPlayerXScore(0)
+      setPlayerOScore(0)
+      setTiesScore(0)
+      setGameWinner('')
+      setBoard(prevBoard => prevBoard.map( tile => ({
+        ...tile, isHeld: false, content: ''
+      })))
+    }
     if (gameState === 'quit game') {
       setModalState(false)
       setGameOn(false)
@@ -164,7 +180,7 @@ export default function App() {
       setBoard, board,
       onGameResetButton,
       playerXScore, playerOScore, tiesScore,
-      onQuitGame, onNewRound, onCancelRestartGame, onRestartGame
+      onQuitGame, onNewRound, onCancelRestartGame, onRestartGame, onStartGame
     }}>
       <img src={Logo} alt="Tic Tac Toe logo"/>
       {gameOn ? '' : <GameStart />}
