@@ -1,4 +1,5 @@
-import { useReducer } from "react"
+import { useReducer, useCallback } from "react"
+import { winPattern } from "../data/winPattern"
 
 const ACTIONS = {
     START_GAME: 'START_GAME',
@@ -7,7 +8,8 @@ const ACTIONS = {
     CANCEL_RESTART: 'CANCEL_RESTART',
     NEW_ROUND: 'NEW_ROUND',
     MAKE_MOVE: 'MAKE_MOVE',
-    TOGGLE_MODAL: 'TOGGLE_MODAL'
+    GAME_WINNER: 'GAME_WINNER',
+    TOGGLE_MODAL: 'TOGGLE_MODAL',
 }
 
 const initialState = {
@@ -71,6 +73,16 @@ function gameReducer(state, action) {
                     tile
                 )
             }
+        case ACTIONS.GAME_WINNER:
+            return{
+                ...state,
+                modalState: true,
+                gameWinner: action.payload.winner,
+                playerXScore: 0,
+                playerOScore: 0,
+                tiesScore: 0
+
+            }
         case ACTIONS.TOGGLE_MODAL:
             return {
                 ...state,
@@ -82,8 +94,90 @@ function gameReducer(state, action) {
 }
 
 //TO DO: add dispach funtions
-export default function useGameState() {
-    const [ state, dispach ] = useReducer(gameReducer, initialState)
+export default function useGameState(initialBoard) {
+    const [ state, dispatch ] = useReducer(gameReducer, {
+        ...initialState,
+        board: initialBoard
+    })
 
+    const onGameResetButton = useCallback(() => {
+        dispatch({ type: ACTIONS.TOGGLE_MODAL });
+    }, [])
+
+    const onQuitGame = useCallback( () => {
+        dispatch({ type: ACTIONS.QUIT_GAME})
+    }, [])
+
+    const onNewRound = useCallback( () => {
+        dispatch({ type: ACTIONS.NEW_ROUND})
+    }, [])
+
+    const onCancelRestartGame = useCallback( () => {
+        dispatch({ type: ACTIONS.CANCEL_RESTART})
+    }, [])
+
+    const onRestartGame = useCallback( () => {
+        dispatch({ type: ACTIONS.RESTART_GAME})
+    }, [])
+    
+    const onStartGame = useCallback( (isCpu) => {
+        dispatch({ type: ACTIONS.START_GAME, payload: {isCpu}})
+    })
+
+    const onMakeMove = useCallback( (tileId) => {
+        dispatch({ type: ACTIONS.MAKE_MOVE, payload: {tileId}})
+    })
+
+    function onCheckGameWinner(board) {
+        const pattern = winPattern
+
+        for (let [a, b, c] of pattern) {
+            if ( board[a].content && board[b].content === board[a].content && board[c].content === board[a].content) {
+              return board[a].content
+            }
+            if ( board.every(tile => tile.isHeld) ) {
+              return 'tie'
+            }
+        }
+    }
+
+    const onGetWinner = useCallback( () => {
+        const winner = onCheckGameWinner(state.board)
+
+        if (winner) {
+            dispatch({ type: ACTIONS.TOGGLE_MODAL})
+            onUpdateScore(winner)
+        }
+    }, [state.board, onCheckGameWinner])
+
+    const onUpdateScore = useCallback( (winner) => {
+        if ( winner === 'x') {
+            dispatch({ type: ACTIONS.UPDSTE_SCORE, payload: {playerXScore : state.playerXScore + 1}})
+        }
+        if ( winner === 'o') {
+            dispatch({ type: ACTIONS.UPDSTE_SCORE, payload: {playerOScore : state.playerOScore + 1}})
+        }
+        if ( winner === 'tie') {
+            dispatch({ type: ACTIONS.UPDSTE_SCORE, payload: {tiesScore : state.tiesScore + 1}})
+        }
+    })
+
+    return {
+        state,
+        onGameResetButton,
+        onQuitGame,
+        onNewRound,
+        onCancelRestartGame,
+        onRestartGame,
+        onStartGame,
+        onMakeMove,
+        onGetWinner,
+        onUpdateScore,
+        onCheckGameWinner
+      }
 
 }
+
+  
+
+  
