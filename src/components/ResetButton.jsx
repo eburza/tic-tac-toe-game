@@ -5,7 +5,7 @@ export default function ResetGame() {
 
     const { onGameResetButton } = useContext(GameContext)
 
-    function handleResetButton() {
+    const handleResetButton = () => {
         onGameResetButton()
     }
 
