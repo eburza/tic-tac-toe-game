@@ -1,17 +1,18 @@
 import { useContext } from 'react'
 import GameContext from '../Context'
-import playerX from '../assets/icon-x.svg'
-import playerO from '../assets/icon-o.svg'
+import playerXicon from '../assets/icon-x.svg'
+import playerOicon from '../assets/icon-o.svg'
 
 export default function PlayerTurn() {
 
-    const { isXTurn } = useContext(GameContext)
+    const { state } = useContext(GameContext)
+    
     return(
     <div> 
         {
-        isXTurn ? 
-        <img src={playerX}/> : 
-        <img src={playerO}/>
+        state.isXTurn ? 
+        <img src={playerXicon}/> : 
+        <img src={playerOicon}/>
         }
     </div>
     )
