@@ -1,4 +1,4 @@
-import {  } from 'react'
+import { useMemo } from 'react'
 import GameContext from './Context'
 import useGameState from './functions/useGameState'
 import { boardArray } from './data/boardArray'
@@ -9,63 +9,19 @@ import Modal from './components/Modal'
 
 export default function App() {
 
-  const {
-    state,
-    onGameResetButton,
-    onQuitGame,
-    onNewRound,
-    onCancelRestartGame,
-    onRestartGame,
-    onStartGame,
-    onMakeMove,
-    onGetWinner,
-    onUpdateScore,
-    onCheckGameWinner
-  } = useGameState(boardArray)
+  const gameState = useGameState(boardArray)
 
-  const {
-    gameCpu,
-    gamePlayer,
-    gameOn,
-    modalState,
-    playerX,
-    isXTurn,
-    gameWinner,
-    playerXScore,
-    playerOScore,
-    tiesScore,
-    board
-  } = state
+  const contextValue = useMemo(() => ({
+    ...gameState,
+}), [gameState])
 
   return (
     <GameContext.Provider 
-    value={{ 
-      gameCpu,
-      gamePlayer,
-      gameOn,
-      modalState,
-      playerX,
-      isXTurn,
-      gameWinner,
-      playerXScore,
-      playerOScore,
-      tiesScore,
-      board,
-      onGameResetButton,
-      onQuitGame,
-      onNewRound,
-      onCancelRestartGame,
-      onRestartGame,
-      onStartGame,
-      onMakeMove,
-      onGetWinner,
-      onUpdateScore,
-      onCheckGameWinner
-    }}>
+    value={ contextValue }>
       <img src={Logo} alt="Tic Tac Toe logo"/>
-      {gameOn ? '' : <GameStart />}
-      {gameOn ? <Game /> : ''}
-      {modalState ? <Modal /> : ''}
+      {!gameState.state.gameOn && <GameStart />}
+      {gameState.state.gameOn && <Game />}
+      {gameState.state.modalState && <Modal />}
     </GameContext.Provider>
   )
 }

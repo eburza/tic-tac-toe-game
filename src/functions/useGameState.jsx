@@ -10,6 +10,7 @@ const ACTIONS = {
     MAKE_MOVE: 'MAKE_MOVE',
     GAME_WINNER: 'GAME_WINNER',
     TOGGLE_MODAL: 'TOGGLE_MODAL',
+    SET_PLAYER: 'SET_PLAYER'
 }
 
 const initialState = {
@@ -88,6 +89,11 @@ function gameReducer(state, action) {
                 ...state,
                 modalState: !state.modalState
             }
+        case ACTIONS.SET_PLAYER:
+            return {
+                ...state,
+                playerX: action.payload.playerX
+            }
         default:
             return state
     }
@@ -121,11 +127,15 @@ export default function useGameState(initialBoard) {
     
     const onStartGame = useCallback( (isCpu) => {
         dispatch({ type: ACTIONS.START_GAME, payload: {isCpu}})
-    })
+    }, [])
+
+    const onSetPlayer = useCallback( (isX) => {
+        dispatch({ type: 'SET_PLAYER', payload: { playerX: isX } })
+      }, [dispatch])
 
     const onMakeMove = useCallback( (tileId) => {
         dispatch({ type: ACTIONS.MAKE_MOVE, payload: {tileId}})
-    })
+    }, [])
 
     function onCheckGameWinner(board) {
         const pattern = winPattern
@@ -144,8 +154,8 @@ export default function useGameState(initialBoard) {
         const winner = onCheckGameWinner(state.board)
 
         if (winner) {
-            dispatch({ type: ACTIONS.TOGGLE_MODAL})
             onUpdateScore(winner)
+            dispatch({ type: ACTIONS.TOGGLE_MODAL})
         }
     }, [state.board, onCheckGameWinner])
 
@@ -159,7 +169,7 @@ export default function useGameState(initialBoard) {
         if ( winner === 'tie') {
             dispatch({ type: ACTIONS.UPDSTE_SCORE, payload: {tiesScore : state.tiesScore + 1}})
         }
-    })
+    }, [])
 
     return {
         state,
@@ -172,7 +182,8 @@ export default function useGameState(initialBoard) {
         onMakeMove,
         onGetWinner,
         onUpdateScore,
-        onCheckGameWinner
+        onCheckGameWinner,
+        onSetPlayer
       }
 }
 
