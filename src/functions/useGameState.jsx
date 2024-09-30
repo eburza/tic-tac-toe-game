@@ -79,11 +79,11 @@ function gameReducer(state, action) {
                 ...state,
                 modalState: true,
                 gameWinner: action.payload.winner,
-                playerXScore: 0,
-                playerOScore: 0,
-                tiesScore: 0
-
+                playerXScore: action.payload.winner === 'X' ? state.playerXScore +1 : state.playerXscore,
+                playerOScore: action.payload.winner === 'O' ? state.playerOScore +1 : state.playerOscore,
+                tiesScore: action.payload.winnner === 'TIE' ? state.tiesScore +1 : state.tiesScore
             }
+
         case ACTIONS.TOGGLE_MODAL:
             return {
                 ...state,
@@ -138,7 +138,7 @@ export default function useGameState(initialBoard) {
         dispatch({ type: ACTIONS.MAKE_MOVE, payload: {tileId}})
     }, [state.board, state.isXTurn])
 
-    function onCheckGameWinner(board) {
+    function checkGameWinner(board) {
         const pattern = winPattern
 
         for (let [a, b, c] of pattern) {
@@ -151,27 +151,28 @@ export default function useGameState(initialBoard) {
         }
     }
 
+    function updateScore(winner) {
+        if ( winner === 'X') {
+            dispatch({ type: ACTIONS.UPDSTE_SCORE, payload: {playerXScore : state.playerXScore + 1}})
+        }
+        if ( winner === 'O') {
+            dispatch({ type: ACTIONS.UPDSTE_SCORE, payload: {playerOScore : state.playerOScore + 1}})
+        }
+        if ( winner === 'TIE') {
+            dispatch({ type: ACTIONS.UPDSTE_SCORE, payload: {tiesScore : state.tiesScore + 1}})
+        }
+    }
+
     const onGetWinner = useCallback( () => {
-        const winner = onCheckGameWinner(state.board)
+        const winner = checkGameWinner(state.board)
         console.log(`get winner is on`)
         if (winner) {
-            onUpdateScore(winner)
+            updateScore(winner)
             dispatch({ type: ACTIONS.GAME_WINNER, payload: { winner } })
             dispatch({ type: ACTIONS.TOGGLE_MODAL })
         }
-    }, [state.board, onCheckGameWinner, onMakeMove, dispatch])
+    }, [state.board, checkGameWinner, updateScore, onMakeMove, dispatch])
 
-    const onUpdateScore = useCallback( (winner) => {
-        if ( winner === 'x') {
-            dispatch({ type: ACTIONS.UPDSTE_SCORE, payload: {playerXScore : state.playerXScore + 1}})
-        }
-        if ( winner === 'o') {
-            dispatch({ type: ACTIONS.UPDSTE_SCORE, payload: {playerOScore : state.playerOScore + 1}})
-        }
-        if ( winner === 'tie') {
-            dispatch({ type: ACTIONS.UPDSTE_SCORE, payload: {tiesScore : state.tiesScore + 1}})
-        }
-    }, [])
 
     const onToggleModal = useCallback( () => {
         dispatch({ type: ACTIONS.TOGGLE_MODAL})
@@ -187,8 +188,6 @@ export default function useGameState(initialBoard) {
         onStartGame,
         onMakeMove,
         onGetWinner,
-        onUpdateScore,
-        onCheckGameWinner,
         onSetPlayer,
         onToggleModal
       }
