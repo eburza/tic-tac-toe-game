@@ -4,13 +4,10 @@ import Tile from './Tile'
 
 export default function Board() {
 
-    const { 
-        state,
-        onMakeMove, 
-    } = useContext(GameContext)
+    const { state, onMakeMove } = useContext(GameContext)
 
     function handleChange(tileId) {
-        onMakeMove(tileId);
+        onMakeMove(tileId)
       }
 
     const boardTiles = state.board.map( tileEl => (
