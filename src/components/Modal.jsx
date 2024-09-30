@@ -1,34 +1,33 @@
-import { useContext } from 'react'
+import { useCallback, useContext } from 'react'
 import GameContext from '../Context'
 import ModalElement from './ModalElement'
 
 export default function Modal() {
 
     const { state, onQuitGame, onNewRound, onCancelRestartGame, onRestartGame } = useContext(GameContext)
-    const { playerXScore, playerOScore, tiesScore, modalState } = state
 
-    const handleQuitGame = () => {
+    const handleQuitGame = useCallback(() => {
         onQuitGame()
-    }
+    }, [onQuitGame])
 
-    const handleNewRound = () => {
+    const handleNewRound = useCallback(() => {
         onNewRound()
-    }
+    }, [onNewRound])
 
-    const handleCancelRestartGame = () => {
+    const handleCancelRestartGame = useCallback(() => {
         onCancelRestartGame()
-    }
+    }, [onCancelRestartGame])
 
-    const handleRestartGame = () => {
+    const handleRestartGame = useCallback(() => {
         onRestartGame()
-    }
+    }, [onRestartGame])
 
     return (
-        <div id='modal' style={modalState ? {display:'block'} : {}}>
-            {playerXScore || playerOScore || tiesScore? 
+        <div id='modal' style={state.modalState ? {display:'block'} : {}}>
+            {state.playerXScore || state.playerOScore || state.tiesScore ? 
                  <ModalElement 
-                    subHeadText={playerXScore || playerOScore ? `player won` : ''}
-                    headText={playerXScore ? `x takes the round` : playerOScore ? `o takes the round` : `Round tied`}
+                    subHeadText={state.playerXScore || state.playerOScore ? `player won` : ''}
+                    headText={state.playerXScore ? `x takes the round` : state.playerOScore ? `o takes the round` : `Round tied`}
                     buttonOneId='quit-game-button'
                     buttonOneClassName='button button-gray'
                     handleButtonOneClick={handleQuitGame}
