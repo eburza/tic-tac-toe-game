@@ -24,7 +24,8 @@ const GameContext = createContext({
     onGetWinner: () => {},
     onUpdateScore: () => {},
     onCheckGameWinner: () => {},
-    onSetPlayer: () => {}
+    onSetPlayer: () => {},
+    onToggleModal: () => {}
 })
 
 export default GameContext
