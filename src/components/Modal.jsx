@@ -24,10 +24,10 @@ export default function Modal() {
 
     return (
         <div id='modal' style={state.modalState ? {display:'block'} : {}}>
-            {state.playerXScore || state.playerOScore || state.tiesScore ? 
+            {state.gameWinner !== '' ? 
                  <ModalElement 
-                    subHeadText={state.playerXScore || state.playerOScore ? `player won` : ''}
-                    headText={state.playerXScore ? `x takes the round` : state.playerOScore ? `o takes the round` : `Round tied`}
+                    subHeadText={state.gameWinner !== 'TIE' ? `Player ${state.gameWinner} won!` : ''}
+                    headText={state.gameWinner !== 'TIE' ? `${state.gameWinner} takes the round` : `Round tied`}
                     buttonOneId='quit-game-button'
                     buttonOneClassName='button button-gray'
                     handleButtonOneClick={handleQuitGame}
