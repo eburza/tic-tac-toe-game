@@ -130,12 +130,13 @@ export default function useGameState(initialBoard) {
     }, [])
 
     const onSetPlayer = useCallback( (isX) => {
-        dispatch({ type: 'SET_PLAYER', payload: { playerX: isX } })
+        dispatch({ type: ACTIONS.SET_PLAYER, payload: { playerX: isX } })
       }, [dispatch])
 
     const onMakeMove = useCallback( (tileId) => {
+        onGetWinner()
         dispatch({ type: ACTIONS.MAKE_MOVE, payload: {tileId}})
-    }, [])
+    }, [state.board, state.isXTurn])
 
     function onCheckGameWinner(board) {
         const pattern = winPattern
@@ -145,19 +146,20 @@ export default function useGameState(initialBoard) {
               return board[a].content
             }
             if ( board.every(tile => tile.isHeld) ) {
-              return 'tie'
+              return 'TIE'
             }
         }
     }
 
     const onGetWinner = useCallback( () => {
         const winner = onCheckGameWinner(state.board)
-
+        console.log(`get winner is on`)
         if (winner) {
             onUpdateScore(winner)
-            dispatch({ type: ACTIONS.TOGGLE_MODAL})
+            dispatch({ type: ACTIONS.GAME_WINNER, payload: { winner } })
+            dispatch({ type: ACTIONS.TOGGLE_MODAL })
         }
-    }, [state.board, onCheckGameWinner])
+    }, [state.board, onCheckGameWinner, onMakeMove, dispatch])
 
     const onUpdateScore = useCallback( (winner) => {
         if ( winner === 'x') {
@@ -171,6 +173,10 @@ export default function useGameState(initialBoard) {
         }
     }, [])
 
+    const onToggleModal = useCallback( () => {
+        dispatch({ type: ACTIONS.TOGGLE_MODAL})
+    }, [])
+ 
     return {
         state,
         onGameResetButton,
@@ -183,7 +189,8 @@ export default function useGameState(initialBoard) {
         onGetWinner,
         onUpdateScore,
         onCheckGameWinner,
-        onSetPlayer
+        onSetPlayer,
+        onToggleModal
       }
 }
 
