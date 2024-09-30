@@ -1,20 +1,20 @@
-import PropTypes from 'react'
+import PropTypes from 'prop-types'
 import Button from './Button'
 
 export default function ModalElement( {subHeadText, headText, buttonOneId, buttonTwoId, buttonOneClassName, buttonTwoClassName, handleButtonOneClick, handleButtonTwoClick, buttonOneText, buttonTwoText}) {
     return(
         <div id='modal-content'>
-            { subHeadText ? <p>{subHeadText}</p> : ''}
+            { subHeadText && <p>{subHeadText}</p>}
             <h1>{headText}</h1>
             <Button 
                 id={buttonOneId} 
                 className={buttonOneClassName} 
-                onClick={handleButtonOneClick}
+                handleClick={handleButtonOneClick}
                 buttonText={buttonOneText}/>
             <Button 
                 id={buttonTwoId} 
                 className={buttonTwoClassName} 
-                onClick={handleButtonTwoClick}
+                handleClick={handleButtonTwoClick}
                 buttonText={buttonTwoText}/>
         </div>
     )
