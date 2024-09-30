@@ -36,11 +36,13 @@ function gameReducer(state, action) {
                 gameCpu: action.payload.isCpu,
                 gamePlayer: !action.payload.isCpu
             }
+            
         case ACTIONS.QUIT_GAME:
             return {
                 ...initialState,
                 board: state.board.map(tile => ({ ...tile, isHeld: false, content: '' }))
             }
+
         case ACTIONS.RESTART_GAME:
             return {
                 ...state,
@@ -49,11 +51,13 @@ function gameReducer(state, action) {
                     ...tile, isHeld: false, content: '' 
                 }))
             }
+
         case ACTIONS.CANCEL_RESTART:
             return {
                 ...state,
                 modalState: false
             }
+
         case ACTIONS.NEW_ROUND:
             return {
                 ...state,
@@ -70,18 +74,19 @@ function gameReducer(state, action) {
                 isXTurn: !state.isXTurn,
                 board: state.board.map(tile => 
                     tile.id === action.payload.tileId ?
-                    { ...tile, isHeld: true, content: state.isXTurn ? 'X' : "O"} :
+                    { ...tile, isHeld: true, content: state.isXTurn ? 'X' : 'O'} :
                     tile
                 )
             }
+
         case ACTIONS.GAME_WINNER:
             return{
                 ...state,
                 modalState: true,
                 gameWinner: action.payload.winner,
-                playerXScore: action.payload.winner === 'X' ? state.playerXScore +1 : state.playerXscore,
-                playerOScore: action.payload.winner === 'O' ? state.playerOScore +1 : state.playerOscore,
-                tiesScore: action.payload.winnner === 'TIE' ? state.tiesScore +1 : state.tiesScore
+                playerXScore: action.payload.winner === 'X' ? state.playerXScore + 1 : state.playerXscore,
+                playerOScore: action.payload.winner === 'O' ? state.playerOScore + 1 : state.playerOScore,
+                tiesScore: action.payload.winner === 'TIE' ? state.tiesScore + 1 : state.tiesScore
             }
 
         case ACTIONS.TOGGLE_MODAL:
@@ -89,6 +94,7 @@ function gameReducer(state, action) {
                 ...state,
                 modalState: !state.modalState
             }
+
         case ACTIONS.SET_PLAYER:
             return {
                 ...state,
@@ -135,46 +141,38 @@ export default function useGameState(initialBoard) {
 
     const onMakeMove = useCallback( (tileId) => {
         onGetWinner()
+        console.log('player move')
         dispatch({ type: ACTIONS.MAKE_MOVE, payload: {tileId}})
-    }, [state.board, state.isXTurn])
+    }, [state.board, state.isXTurn, dispatch])
 
-    function checkGameWinner(board) {
+    const checkGameWinner = useCallback((board) => {
         const pattern = winPattern
 
         for (let [a, b, c] of pattern) {
             if ( board[a].content && board[b].content === board[a].content && board[c].content === board[a].content) {
-              return board[a].content
-            }
-            if ( board.every(tile => tile.isHeld) ) {
-              return 'TIE'
+                console.log(`winner: ${board[a].content}`)
+                return board[a].content
             }
         }
-    }
-
-    function updateScore(winner) {
-        if ( winner === 'X') {
-            dispatch({ type: ACTIONS.UPDSTE_SCORE, payload: {playerXScore : state.playerXScore + 1}})
+        
+        if ( board.every(tile => tile.isHeld) ) {
+            return 'TIE'
         }
-        if ( winner === 'O') {
-            dispatch({ type: ACTIONS.UPDSTE_SCORE, payload: {playerOScore : state.playerOScore + 1}})
-        }
-        if ( winner === 'TIE') {
-            dispatch({ type: ACTIONS.UPDSTE_SCORE, payload: {tiesScore : state.tiesScore + 1}})
-        }
-    }
+        return null
+    }, [state.board, onMakeMove, state.gameWinner])
 
     const onGetWinner = useCallback( () => {
         const winner = checkGameWinner(state.board)
         console.log(`get winner is on`)
         if (winner) {
-            updateScore(winner)
+            onToggleModal()
             dispatch({ type: ACTIONS.GAME_WINNER, payload: { winner } })
-            dispatch({ type: ACTIONS.TOGGLE_MODAL })
         }
-    }, [state.board, checkGameWinner, updateScore, onMakeMove, dispatch])
+    }, [state.board, checkGameWinner, onMakeMove, dispatch, state.gameWinner])
 
 
     const onToggleModal = useCallback( () => {
+        console.log('toggle')
         dispatch({ type: ACTIONS.TOGGLE_MODAL})
     }, [])
  
