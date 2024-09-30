@@ -4,7 +4,7 @@ export default function ResultElement({text, counter, player}) {
 
     return(
         <div>
-            <p>{`${text} ${player && player}`}</p>
+            <p>{`${text} ${player ? player : ''}`}</p>
             <p>{counter}</p>
         </div>
     )
