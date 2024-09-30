@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useCallback, useContext } from 'react'
 import GameContext from '../Context'
 import Tile from './Tile'
 
@@ -6,9 +6,11 @@ export default function Board() {
 
     const { state, onMakeMove } = useContext(GameContext)
 
-    function handleChange(tileId) {
-        onMakeMove(tileId)
-      }
+    const handleChange = useCallback((tileId) => {
+        if( !state.gameWinner ) {
+            onMakeMove(tileId)
+        }
+    }, [state.board, onMakeMove, state.gameWinner])
 
     const boardTiles = state.board.map( tileEl => (
         <Tile 
