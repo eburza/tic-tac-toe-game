@@ -9,7 +9,6 @@ const ACTIONS = {
     NEW_ROUND: 'NEW_ROUND',
     MAKE_MOVE: 'MAKE_MOVE',
     GAME_WINNER: 'GAME_WINNER',
-    TOGGLE_MODAL: 'TOGGLE_MODAL',
     SET_PLAYER: 'SET_PLAYER'
 }
 
@@ -26,6 +25,18 @@ const initialState = {
     tiesScore: 0,
     board: []
 }
+
+function checkGameWinner(board) {
+    for (let [a, b, c] of winPattern) {
+      if (board[a].content && board[a].content === board[b].content && board[a].content === board[c].content) {
+        return board[a].content
+      }
+    }
+    if (board.every(tile => tile.isHeld)) {
+      return 'TIE'
+    }
+    return null
+  }
 
 function gameReducer(state, action) {
     switch(action.type) {
@@ -62,31 +73,28 @@ function gameReducer(state, action) {
             return {
                 ...state,
                 modalState: false,
-                isXTurn: !state.isXTurn,
+                isXTurn: state.isXTurn,
                 gameWinner: '',
                 board: state.board.map(tile => ({ 
                     ...tile, isHeld: false, content: ''
                 }))
             }
         case ACTIONS.MAKE_MOVE:
+            const newBoard = state.board.map(tile => 
+                tile.id === action.payload.tileId ?
+                { ...tile, isHeld: true, content: state.isXTurn ? 'X' : "O"} :
+                tile
+            )
+            const winner = checkGameWinner(newBoard)
             return {
                 ...state,
                 isXTurn: !state.isXTurn,
-                board: state.board.map(tile => 
-                    tile.id === action.payload.tileId ?
-                    { ...tile, isHeld: true, content: state.isXTurn ? 'X' : 'O'} :
-                    tile
-                )
-            }
-
-        case ACTIONS.GAME_WINNER:
-            return{
-                ...state,
-                modalState: true,
-                gameWinner: action.payload.winner,
-                playerXScore: action.payload.winner === 'X' ? state.playerXScore + 1 : state.playerXscore,
-                playerOScore: action.payload.winner === 'O' ? state.playerOScore + 1 : state.playerOScore,
-                tiesScore: action.payload.winner === 'TIE' ? state.tiesScore + 1 : state.tiesScore
+                board: newBoard,
+                gameWinner: winner,
+                modalState: winner ? true : false,
+                playerXScore: winner === 'X' ? state.playerXScore + 1 : state.playerXScore,
+                playerOScore: winner === 'O' ? state.playerOScore + 1 : state.playerOScore,
+                tiesScore: winner === 'TIE' ? state.tiesScore + 1 : state.tiesScore
             }
 
         case ACTIONS.TOGGLE_MODAL:
@@ -140,40 +148,7 @@ export default function useGameState(initialBoard) {
       }, [dispatch])
 
     const onMakeMove = useCallback( (tileId) => {
-        onGetWinner()
-        console.log('player move')
         dispatch({ type: ACTIONS.MAKE_MOVE, payload: {tileId}})
-    }, [state.board, state.isXTurn, dispatch])
-
-    const checkGameWinner = useCallback((board) => {
-        const pattern = winPattern
-
-        for (let [a, b, c] of pattern) {
-            if ( board[a].content && board[b].content === board[a].content && board[c].content === board[a].content) {
-                console.log(`winner: ${board[a].content}`)
-                return board[a].content
-            }
-        }
-        
-        if ( board.every(tile => tile.isHeld) ) {
-            return 'TIE'
-        }
-        return null
-    }, [state.board, onMakeMove, state.gameWinner])
-
-    const onGetWinner = useCallback( () => {
-        const winner = checkGameWinner(state.board)
-        console.log(`get winner is on`)
-        if (winner) {
-            onToggleModal()
-            dispatch({ type: ACTIONS.GAME_WINNER, payload: { winner } })
-        }
-    }, [state.board, checkGameWinner, onMakeMove, dispatch, state.gameWinner])
-
-
-    const onToggleModal = useCallback( () => {
-        console.log('toggle')
-        dispatch({ type: ACTIONS.TOGGLE_MODAL})
     }, [])
  
     return {
@@ -185,9 +160,7 @@ export default function useGameState(initialBoard) {
         onRestartGame,
         onStartGame,
         onMakeMove,
-        onGetWinner,
-        onSetPlayer,
-        onToggleModal
+        onSetPlayer
       }
 }
 
