@@ -1,5 +1,5 @@
-import { useReducer, useCallback } from "react"
-import { winPattern } from "../data/winPattern"
+import { useReducer, useCallback } from 'react'
+import { winPattern } from '../data/winPattern'
 
 const ACTIONS = {
     START_GAME: 'START_GAME',
@@ -8,6 +8,7 @@ const ACTIONS = {
     CANCEL_RESTART: 'CANCEL_RESTART',
     NEW_ROUND: 'NEW_ROUND',
     MAKE_MOVE: 'MAKE_MOVE',
+    CPU_MOVE: 'CPU_MOVE',
     GAME_WINNER: 'GAME_WINNER',
     SET_PLAYER: 'SET_PLAYER'
 }
@@ -36,6 +37,14 @@ function checkGameWinner(board) {
       return 'TIE'
     }
     return null
+}
+
+function makeCpuMove(board) {
+    const availableTile = board.filter(tile => !tile.isHeld).map(tile => tile.id)
+    const randomIndex = Math.floor(Math.random() * availableTile.length)
+    // console.log(availableTile[randomIndex])
+    return availableTile[randomIndex]
+
   }
 
 function gameReducer(state, action) {
@@ -79,13 +88,48 @@ function gameReducer(state, action) {
                     ...tile, isHeld: false, content: ''
                 }))
             }
-        case ACTIONS.MAKE_MOVE:
-            const newBoard = state.board.map(tile => 
+
+        case ACTIONS.MAKE_MOVE: {
+            let newBoard = state.board.map(tile => 
                 tile.id === action.payload.tileId ?
                 { ...tile, isHeld: true, content: state.isXTurn ? 'X' : "O"} :
                 tile
+              )
+              
+              let winner = checkGameWinner(newBoard)
+              
+            //   if (!winner && state.gameCpu && ((state.playerX && !state.isXTurn) || (!state.playerX && state.isXTurn))) {
+            //     const cpuMoveId = makeCpuMove(newBoard)
+            //     newBoard = newBoard.map(tile => 
+            //       tile.id === cpuMoveId ?
+            //       { ...tile, isHeld: true, content: state.isXTurn ? 'X' : "O"} :
+            //       tile
+            //     )
+            //     winner = checkGameWinner(newBoard)
+            //   }
+        
+              return {
+                ...state,
+                isXTurn: !state.isXTurn,
+                board: newBoard,
+                gameWinner: winner,
+                modalState: winner ? true : false,
+                playerXScore: winner === 'X' ? state.playerXScore + 1 : state.playerXScore,
+                playerOScore: winner === 'O' ? state.playerOScore + 1 : state.playerOScore,
+                tiesScore: winner === 'TIE' ? state.tiesScore + 1 : state.tiesScore
+              }
+        }
+
+        case ACTIONS.CPU_MOVE: {
+            const cpuMoveId = makeCpuMove(state.board)
+            let newBoard = state.board.map(tile => 
+                tile.id === cpuMoveId ?
+                { ...tile, isHeld: true, content: state.isXTurn ? 'X' : "O"} :
+                tile
             )
-            const winner = checkGameWinner(newBoard)
+            
+            let winner = checkGameWinner(newBoard)
+            
             return {
                 ...state,
                 isXTurn: !state.isXTurn,
@@ -96,6 +140,7 @@ function gameReducer(state, action) {
                 playerOScore: winner === 'O' ? state.playerOScore + 1 : state.playerOScore,
                 tiesScore: winner === 'TIE' ? state.tiesScore + 1 : state.tiesScore
             }
+        }
 
         case ACTIONS.TOGGLE_MODAL:
             return {
@@ -147,9 +192,31 @@ export default function useGameState(initialBoard) {
         dispatch({ type: ACTIONS.SET_PLAYER, payload: { playerX: isX } })
       }, [dispatch])
 
-    const onMakeMove = useCallback( (tileId) => {
-        dispatch({ type: ACTIONS.MAKE_MOVE, payload: {tileId}})
-    }, [])
+      const onMakeCpuMove = useCallback(() => {
+        if (state.gameCpu && !state.gameWinner && 
+            ((state.playerX && !state.isXTurn) || (!state.playerX && state.isXTurn))) {
+            dispatch({ type: ACTIONS.CPU_MOVE })
+        }
+    }, [state.gameCpu, state.gameWinner, state.playerX, state.isXTurn])
+
+    const onMakeMove = useCallback((tileId) => {
+        dispatch({type: ACTIONS.MAKE_MOVE, payload: {tileId}})
+    }, [state.gameWinner, state.playerX, state.isXTurn])
+
+    // const onMakeMove = useCallback((tileId) => {
+    //     const isCpuTurn = state.gameCpu && ((state.playerX && !state.isXTurn) || (!state.playerX && state.isXTurn))
+        
+    //     if (!isCpuTurn) {
+    //         console.log(`player ${tileId}`)
+    //         dispatch({ type: ACTIONS.MAKE_MOVE, payload: {tileId}})
+    //     } else {
+    //         if (state.gameCpu && !state.gameWinner) {
+    //             const cpuMoveId = makeCpuMove(state.board)
+    //             console.log(`cpu ${tileId}`)
+    //             dispatch({ type: ACTIONS.MAKE_MOVE, payload: {tileId: cpuMoveId}})
+    //         }
+    //     }
+    // }, [state.gameCpu, state.playerX, state.isXTurn, state.board])
  
     return {
         state,
@@ -160,6 +227,7 @@ export default function useGameState(initialBoard) {
         onRestartGame,
         onStartGame,
         onMakeMove,
+        onMakeCpuMove,
         onSetPlayer
       }
 }

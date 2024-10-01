@@ -1,10 +1,18 @@
-import { useCallback, useContext } from 'react'
+import { useCallback, useContext, useEffect } from 'react'
 import GameContext from '../Context'
 import Tile from './Tile'
 
 export default function Board() {
 
-    const { state, onMakeMove } = useContext(GameContext)
+    const { state, onMakeMove, onMakeCpuMove } = useContext(GameContext)
+
+    useEffect( () => {
+        const timer = setTimeout(() => {
+            onMakeCpuMove()
+        }, 500)
+
+        return () => clearTimeout(timer)
+    }, [state.gameCpu, state.gameWinner, state.playerX, state.isXTurn])
 
     const handleChange = useCallback((tileId) => {
         if( !state.gameWinner ) {
