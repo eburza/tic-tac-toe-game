@@ -42,7 +42,6 @@ function checkGameWinner(board) {
 function makeCpuMove(board) {
     const availableTile = board.filter(tile => !tile.isHeld).map(tile => tile.id)
     const randomIndex = Math.floor(Math.random() * availableTile.length)
-    // console.log(availableTile[randomIndex])
     return availableTile[randomIndex]
 
   }
@@ -97,16 +96,6 @@ function gameReducer(state, action) {
               )
               
               let winner = checkGameWinner(newBoard)
-              
-            //   if (!winner && state.gameCpu && ((state.playerX && !state.isXTurn) || (!state.playerX && state.isXTurn))) {
-            //     const cpuMoveId = makeCpuMove(newBoard)
-            //     newBoard = newBoard.map(tile => 
-            //       tile.id === cpuMoveId ?
-            //       { ...tile, isHeld: true, content: state.isXTurn ? 'X' : "O"} :
-            //       tile
-            //     )
-            //     winner = checkGameWinner(newBoard)
-            //   }
         
               return {
                 ...state,
@@ -202,21 +191,6 @@ export default function useGameState(initialBoard) {
     const onMakeMove = useCallback((tileId) => {
         dispatch({type: ACTIONS.MAKE_MOVE, payload: {tileId}})
     }, [state.gameWinner, state.playerX, state.isXTurn])
-
-    // const onMakeMove = useCallback((tileId) => {
-    //     const isCpuTurn = state.gameCpu && ((state.playerX && !state.isXTurn) || (!state.playerX && state.isXTurn))
-        
-    //     if (!isCpuTurn) {
-    //         console.log(`player ${tileId}`)
-    //         dispatch({ type: ACTIONS.MAKE_MOVE, payload: {tileId}})
-    //     } else {
-    //         if (state.gameCpu && !state.gameWinner) {
-    //             const cpuMoveId = makeCpuMove(state.board)
-    //             console.log(`cpu ${tileId}`)
-    //             dispatch({ type: ACTIONS.MAKE_MOVE, payload: {tileId: cpuMoveId}})
-    //         }
-    //     }
-    // }, [state.gameCpu, state.playerX, state.isXTurn, state.board])
  
     return {
         state,
