@@ -32,8 +32,6 @@ export default function ModalElement( {subHeadText, headText, buttonOneId, butto
     )
 }
 
-
-
 ModalElement.propTypes = {
     handleButtonOneClick: PropTypes.func,
     handleButtonTwoClick: PropTypes.func,
