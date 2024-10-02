@@ -88,6 +88,10 @@ body {
     @include display-flex(column, center, center, 2.5rem);
 }
 
+button {
+    cursor: pointer;
+}
+
 /* modal */
 #modal {
     display: block;
@@ -171,7 +175,7 @@ body {
     @include display-flex(initial, initial, center, 0.5rem);
     background-color: $dark-navy;
     border-radius: $radius;
-    padding: 0.75rem;
+    padding: 0.75rem 0.75rem 0.55rem;
 }
 
 #set-player .player-button{
