@@ -26,8 +26,8 @@ export default function Modal() {
         <div id='modal' style={state.modalState ? {display:'block'} : {}}>
             {state.gameWinner === 'X' || state.gameWinner === 'O' ? 
                  <ModalElement 
-                    subHeadText={state.gameWinner !== 'TIE' ? `Player ${state.gameWinner} won!` : ''}
-                    headText={state.gameWinner === 'X' ? `takes the round` : `Round tied`}
+                    subHeadText={state.playerX && state.gameWinner === 'X' ? 'You won!' : 'OH NO, YOU LOST…' }
+                    headText={state.gameWinner === 'X' || state.gameWinner === 'O' ? `takes the round` : `Round tied`}
                     headTextId={state.gameWinner === 'X' ? 'modal-head-x' : state.gameWinner === 'O' ? 'modal-head-o' : ''}
                     buttonOneId='quit-game-button'
                     buttonOneClassName='modal-btn button-silver'
