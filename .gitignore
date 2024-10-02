@@ -27,3 +27,5 @@ dist-ssr
 eslint.config.js
 
 src/TextContent.jsx
+
+svg-inject.js

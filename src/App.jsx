@@ -18,10 +18,12 @@ export default function App() {
   return (
     <GameContext.Provider 
     value={ contextValue }>
-      <img src={Logo} alt="Tic Tac Toe logo"/>
-      {!gameState.state.gameOn && <GameStart />}
-      {gameState.state.gameOn && <Game />}
-      {gameState.state.modalState && <Modal />}
+      <section id='game'>
+        {!gameState.state.gameOn && <img src={Logo} alt="Tic Tac Toe logo"/>}
+        {!gameState.state.gameOn && <GameStart />}
+        {gameState.state.gameOn && <Game />}
+        {gameState.state.modalState && <Modal />}
+      </section>
     </GameContext.Provider>
   )
 }

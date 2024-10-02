@@ -1,4 +1,9 @@
 /* functions */
+// other settings
+$radius: 0.94rem;
+$padding: 1.5rem;
+$shadow: 0px -8px 0px 0px #10212A inset;
+
 // color
 $light-yellow: #F2B137;
 $light-yellow-hover: #FFC860; 
@@ -9,6 +14,11 @@ $silver-hover: #DBE8ED;
 $dark-navy: #1A2A33;
 $semi-dark-navy: #1F3641;
 
+// shadow
+@mixin shadow($color) {
+    box-shadow: 0px -8px 0px 0px $color inset;
+}
+
 // font
 @mixin font{
     font-feature-settings: 'liga' off, 'clig' off;
@@ -18,58 +28,219 @@ $semi-dark-navy: #1F3641;
     line-height: normal;
     // line-height: 1.5rem;
     text-transform: uppercase;
+    margin: 0;
 }
 
 @mixin heading-l{
-    @include font;
     font-size: 2.5rem;
     letter-spacing: 0.156rem;
+    margin: 0;
 }
 
 @mixin heading-m{
-    @include font;
     font-size: 1.5rem;
     letter-spacing: 0.094rem;
+    margin: 0
 }
 @mixin heading-s{
-    @include font;
     font-size: 1.25rem;
     letter-spacing: 0.078rem;
+    margin: 0;
 }
 
 @mixin heading-xs{
-    @include font;
     font-size: 1rem;
-    letter-spacing: 0.0625rem;
+    letter-spacing: 0.063rem;
+    margin: 0;
+}
+
+@mixin sub-head{
+    font-size: 0.875rem;
+    letter-spacing: 0.055rem;
+    margin: 0;
+    font-weight: 400;
+}
+
+// display
+@mixin display-flex($direction, $justyfy, $align, $gap){
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justyfy;
+    align-items: $align;
+    gap: $gap;
 }
 
 /* base */
 * {
     box-sizing: border-box;
+    @include font;
 }
 
 body {
+    @include display-flex(initial, center, center, 1.5rem);
     margin: 0;
     height: 100vh;
     width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: $dark-navy;
+}
+
+#game {
+    @include display-flex(column, center, center, 2.5rem);
 }
 
 /* game start */
+#pick-player-component {
+    @include display-flex(column, center, center, 1.25rem);
+    background-color: $semi-dark-navy;
+    color: $silver-hover;
+    border-radius: $radius;
+    padding: $padding;
+}
 
-// #game-board {
-//     display: grid;
-//     grid-template-columns: repeat(3, 1fr);
-//     gap: 1rem;
-// }
+#pick-player-text-top {
+    @include heading-xs;
+}
 
-// .game-tile {
-//     width: 6rem;
-//     height: 6rem;
-//     flex-shrink: 0;
-// }
+#pick-player-text-bottom {
+    @include sub-head;
+}
+
+#set-player {
+    box-shadow: $shadow;
+    @include display-flex(initial, initial, center, 0.5rem);
+    background-color: $dark-navy;
+    border-radius: $radius;
+    padding: 0.75rem;
+}
+
+#set-player .player-button{
+    cursor: pointer;
+    border-radius: $radius;
+    border: none;
+    padding: 0.25rem 3.5rem;
+    transition: 0.3s ease all;
+    margin-bottom: 8px;
+    height: 100%;
+}
+
+#set-player .inactive {
+    background-color: transparent;
+}
+
+#set-player .selected {
+    background-color: $silver-hover;
+}
+
+#set-player .pick-player-img {
+    margin: 0;
+    transform: scale(0.75);
+}
+
+#set-player .img-selected {
+    filter: invert(12%) sepia(49%) saturate(446%) hue-rotate(157deg) brightness(95%) contrast(92%);
+}
+
+#set-player .img-inactive {
+    filter: invert(96%) sepia(2%) saturate(1841%) hue-rotate(171deg) brightness(101%) contrast(86%);
+}
+
+#start-game-btn {
+    @include display-flex(column, center, center, 1.25rem);
+    width: 100%;
+}
+
+#start-game-btn .new-game-button {
+    @include heading-s;
+    width: 100%;
+    padding: 1rem 0 1.5rem 0;
+    border-radius: $radius;
+    color: $dark-navy;
+}
+
+#start-game-btn #button-start-cpu {
+    @include shadow($light-yellow);
+    background-color: $light-yellow-hover;
+}
+
+#start-game-btn #button-start-player {
+    @include shadow($light-blue);
+    background-color: $light-blue-hover;
+}
+
+/* game board */
+#game-on {
+    @include display-flex(column, center, center, 1rem)
+}
+
+#game-header {
+    @include display-flex(initial, space-between, center, initial);
+    width: 100%;
+}
+
+#player-turn {
+    @include display-flex(initial, space-between, center, 0.5rem);
+    @include heading-xs;
+    box-shadow: 0px -6px 0px 0px #10212A inset;
+    // @include shadow(#10212A);
+    background-color: $semi-dark-navy;
+    color: $silver;
+    border-radius: $radius;
+    padding: 0.4rem 0.75rem 0.9rem;
+}
+
+#player-turn img {
+    transform: scale(0.4);
+    margin: -1rem;
+    filter: invert(91%) sepia(6%) saturate(897%) hue-rotate(164deg) brightness(83%) contrast(87%);
+}
+
+#restart-button {
+    @include display-flex(initial, center, center, 0);
+    background-color: $silver-hover;
+    border-radius: $radius;
+    padding: 0.75rem 0.75rem 1rem;
+    box-shadow: 0px -6px 0px 0px $silver inset;
+}
+
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.game-tile {
+    @include shadow(#10212A);
+    background-color: $semi-dark-navy;
+    width: 6rem;
+    height: 6.6rem;
+    flex-shrink: 0;
+    border-radius: $radius;
+    border: none;
+}
+
+#results {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    width: 100%;
+}
+
+#results .result-element {
+    @include display-flex(column, center, center, 0.5rem);
+    background-color: $silver-hover;
+    border-radius: $radius;
+    padding: 0.5rem;
+}
+
+#results .result-text-top {
+    @include sub-head;
+    margin: -0.25rem;
+}
+
+#results .result-text-counter {
+    @include heading-m;
+    margin: -0.4rem;
+}
 
 // #modal {
 //     display: block;

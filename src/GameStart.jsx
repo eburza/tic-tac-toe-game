@@ -18,18 +18,20 @@ export default function GameStart() {
     return (
         <>
             <PickPlayer />
-            <Button 
-                buttonText="New Game (vs CPU)"
-                buttonClass="new-game-button button-cpu"
-                buttonId="button-start-cpu"
-                handleClick={handleGameCpuStart}
-            />
-            <Button 
-                buttonText="New Game (vs player)"
-                buttonClass="new-game-button button-player"
-                buttonId="button-start-player"
-                handleClick={handleGamePlayerStart}
-            />
+            <div id='start-game-btn'>
+                <Button 
+                    buttonText="New Game (vs CPU)"
+                    buttonClass="new-game-button"
+                    buttonId="button-start-cpu"
+                    handleClick={handleGameCpuStart}
+                />
+                <Button 
+                    buttonText="New Game (vs player)"
+                    buttonClass="new-game-button"
+                    buttonId="button-start-player"
+                    handleClick={handleGamePlayerStart}
+                />
+            </div>
         </>
     )
 }

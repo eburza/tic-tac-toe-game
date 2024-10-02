@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import GameContext from '../Context'
+import restartButtonImg from '../assets/icon-restart.svg'
 
 export default function ResetGame() {
 
@@ -10,9 +11,9 @@ export default function ResetGame() {
     }
 
     return(
-        <button
+        <button id='restart-button'
         onClick={handleResetButton}>
-            RESET
+            <img src={restartButtonImg}/>
         </button>
     )
 }

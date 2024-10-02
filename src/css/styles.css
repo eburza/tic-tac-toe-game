@@ -2,17 +2,232 @@
 /* base */
 * {
   box-sizing: border-box;
+  font-feature-settings: "liga" off, "clig" off;
+  font-family: Outfit;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: uppercase;
+  margin: 0;
 }
 
 body {
+  display: flex;
+  flex-direction: initial;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
   margin: 0;
   height: 100vh;
   width: 100vw;
+  background-color: #1A2A33;
+}
+
+#game {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 2.5rem;
 }
 
 /* game start */
+#pick-player-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+  background-color: #1F3641;
+  color: #DBE8ED;
+  border-radius: 0.94rem;
+  padding: 1.5rem;
+}
+
+#pick-player-text-top {
+  font-size: 1rem;
+  letter-spacing: 0.063rem;
+  margin: 0;
+}
+
+#pick-player-text-bottom {
+  font-size: 0.875rem;
+  letter-spacing: 0.055rem;
+  margin: 0;
+  font-weight: 400;
+}
+
+#set-player {
+  box-shadow: 0px -8px 0px 0px #10212A inset;
+  display: flex;
+  flex-direction: initial;
+  justify-content: initial;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #1A2A33;
+  border-radius: 0.94rem;
+  padding: 0.75rem;
+}
+
+#set-player .player-button {
+  cursor: pointer;
+  border-radius: 0.94rem;
+  border: none;
+  padding: 0.25rem 3.5rem;
+  transition: 0.3s ease all;
+  margin-bottom: 8px;
+  height: 100%;
+}
+
+#set-player .inactive {
+  background-color: transparent;
+}
+
+#set-player .selected {
+  background-color: #DBE8ED;
+}
+
+#set-player .pick-player-img {
+  margin: 0;
+  transform: scale(0.75);
+}
+
+#set-player .img-selected {
+  filter: invert(12%) sepia(49%) saturate(446%) hue-rotate(157deg) brightness(95%) contrast(92%);
+}
+
+#set-player .img-inactive {
+  filter: invert(96%) sepia(2%) saturate(1841%) hue-rotate(171deg) brightness(101%) contrast(86%);
+}
+
+#start-game-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+#start-game-btn .new-game-button {
+  font-size: 1.25rem;
+  letter-spacing: 0.078rem;
+  margin: 0;
+  width: 100%;
+  padding: 1rem 0 1.5rem 0;
+  border-radius: 0.94rem;
+  color: #1A2A33;
+}
+
+#start-game-btn #button-start-cpu {
+  box-shadow: 0px -8px 0px 0px #F2B137 inset;
+  background-color: #FFC860;
+}
+
+#start-game-btn #button-start-player {
+  box-shadow: 0px -8px 0px 0px #31C3BD inset;
+  background-color: #65E9E4;
+}
+
+/* game board */
+#game-on {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+#game-header {
+  display: flex;
+  flex-direction: initial;
+  justify-content: space-between;
+  align-items: center;
+  gap: initial;
+  width: 100%;
+}
+
+#player-turn {
+  display: flex;
+  flex-direction: initial;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  letter-spacing: 0.063rem;
+  margin: 0;
+  box-shadow: 0px -6px 0px 0px #10212A inset;
+  background-color: #1F3641;
+  color: #A8BFC9;
+  border-radius: 0.94rem;
+  padding: 0.4rem 0.75rem 0.9rem;
+}
+
+#player-turn img {
+  transform: scale(0.4);
+  margin: -1rem;
+  filter: invert(91%) sepia(6%) saturate(897%) hue-rotate(164deg) brightness(83%) contrast(87%);
+}
+
+#restart-button {
+  display: flex;
+  flex-direction: initial;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  background-color: #DBE8ED;
+  border-radius: 0.94rem;
+  padding: 0.75rem 0.75rem 1rem;
+  box-shadow: 0px -6px 0px 0px #A8BFC9 inset;
+}
+
+#game-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.game-tile {
+  box-shadow: 0px -8px 0px 0px #10212A inset;
+  background-color: #1F3641;
+  width: 6rem;
+  height: 6.6rem;
+  flex-shrink: 0;
+  border-radius: 0.94rem;
+  border: none;
+}
+
+#results {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  width: 100%;
+}
+
+#results .result-element {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #DBE8ED;
+  border-radius: 0.94rem;
+  padding: 0.5rem;
+}
+
+#results .result-text-top {
+  font-size: 0.875rem;
+  letter-spacing: 0.055rem;
+  margin: 0;
+  font-weight: 400;
+  margin: -0.25rem;
+}
+
+#results .result-text-counter {
+  font-size: 1.5rem;
+  letter-spacing: 0.094rem;
+  margin: 0;
+  margin: -0.4rem;
+}
 
 /*# sourceMappingURL=styles.css.map */

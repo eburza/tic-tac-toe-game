@@ -47,21 +47,24 @@ export default function GameResults() {
     }, [ state.gameCpu, state.playerX])
 
     return(
-        <>
+        <section id='results'>
             <ResultElement 
                 text='X'
                 player={checkXPlayer()}
                 counter={state.playerXScore}
+                id='result-x'
             />
             <ResultElement 
                 text='TIES'
                 counter={state.tiesScore}
+                id='result-tie'
             />
             <ResultElement 
                 text='O'
                 player={checkOPlayer()}
                 counter={state.playerOScore}
+                id='result-o'
             />
-        </>
+        </section>
     )
 }

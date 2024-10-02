@@ -1,33 +1,32 @@
 import { useContext, useCallback } from 'react'
 import GameContext from '../Context'
-import playerXicon from '../assets/icon-x.svg'
-import playerOicon from '../assets/icon-o.svg'
+import playerXblack from '../assets/icon-x-black.svg'
+import playerOblack from '../assets/icon-o-black.svg'
 
 export default function PickPlayer() {
 
     const { state, onSetPlayer } = useContext(GameContext)
 
     const handlePlayerChange = useCallback((isX) => {
-        console.log('Player changed to:', isX ? 'X' : 'O')
         onSetPlayer(isX)
     }, [onSetPlayer])
 
     return (
-        <>
-            <h1>Pick player 1&apos;s mark</h1>
+        <div id='pick-player-component'>
+            <p id='pick-player-text-top'>Pick player 1&apos;s mark</p>
             <div id='set-player'>
                 <button 
                 onClick={() => handlePlayerChange(true)} 
-                className={`player-button ${state.playerX ? 'selected' : ''}`}>
-                    <img src={playerXicon} alt="X" />
+                className={`player-button ${state.playerX ? 'selected' : 'inactive'}`}>
+                    <img src={playerXblack} alt="X" className={`pick-player-img ${state.playerX ? 'img-selected' : 'img-inactive'}`}/>
                 </button>
                 <button 
                 onClick={() => handlePlayerChange(false)} 
-                className={`player-button ${!state.playerX ? 'selected' : ''}`}>
-                    <img src={playerOicon} alt="O" />
+                className={`player-button ${!state.playerX ? 'selected' : 'inactive'}`}>
+                    <img src={playerOblack} alt="O" className={`pick-player-img ${!state.playerX ? 'img-selected' : 'img-inactive'}`}/>
                 </button>
             </div>
-            <h2>Remember: X goes first</h2>
-        </>
+            <p id='pick-player-text-bottom'>Remember: X goes first</p>
+        </div>
     )
 }
