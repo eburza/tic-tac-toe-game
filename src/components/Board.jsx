@@ -12,7 +12,7 @@ export default function Board() {
         }, 500)
 
         return () => clearTimeout(timer)
-    }, [state.gameCpu, state.gameWinner, state.playerX, state.isXTurn, state.board, state.gameOn])
+    }, [state.gameCpu, state.gameWinner, state.playerX, state.isXTurn])
 
     const handleChange = useCallback((tileId) => {
         if( !state.gameWinner ) {
