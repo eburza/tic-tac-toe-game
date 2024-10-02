@@ -226,10 +226,22 @@ body {
 }
 
 #results .result-element {
-    @include display-flex(column, center, center, 0.5rem);
-    background-color: $silver-hover;
+    @include display-flex(column, center, center, 0.75rem);
+    color: $dark-navy;
     border-radius: $radius;
     padding: 0.5rem;
+}
+
+#results #result-x {
+    background-color: $light-blue; 
+}
+
+#results #result-tie {
+    background-color: $silver; 
+}
+
+#results #result-o {
+    background-color: $light-yellow; 
 }
 
 #results .result-text-top {

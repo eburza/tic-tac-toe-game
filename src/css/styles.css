@@ -209,10 +209,22 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
-  background-color: #DBE8ED;
+  gap: 0.75rem;
+  color: #1A2A33;
   border-radius: 0.94rem;
   padding: 0.5rem;
+}
+
+#results #result-x {
+  background-color: #31C3BD;
+}
+
+#results #result-tie {
+  background-color: #A8BFC9;
+}
+
+#results #result-o {
+  background-color: #F2B137;
 }
 
 #results .result-text-top {
