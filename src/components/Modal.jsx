@@ -28,23 +28,25 @@ export default function Modal() {
                  <ModalElement 
                     subHeadText={state.gameWinner !== 'TIE' ? `Player ${state.gameWinner} won!` : ''}
                     headText={state.gameWinner !== 'TIE' ? `${state.gameWinner} takes the round` : `Round tied`}
+                    headTextId={state.gameWinner === 'X' ? 'modal-head-x' : state.gameWinner === 'O' ? 'modal-head-o' : ''}
                     buttonOneId='quit-game-button'
-                    buttonOneClassName='button button-gray'
+                    buttonOneClassName='modal-btn button-silver'
                     handleButtonOneClick={handleQuitGame}
                     buttonOneText='Quit'
                     buttonTwoId='next-round-button'
-                    buttonTwoClassName='button button-orange'
+                    buttonTwoClassName='modal-btn button-yellow'
                     handleButtonTwoClick={handleNewRound}
                     buttonTwoText='Next round'
                  /> :
                  <ModalElement 
                     headText='Restart game?'
+                    headTextId='head-text-restart'
                     buttonOneId='cancel-button'
-                    buttonOneClassName='button button-gray'
+                    buttonOneClassName='modal-btn button-silver'
                     handleButtonOneClick={handleCancelRestartGame}
                     buttonOneText='No, cancel'
                     buttonTwoId='restart-game-button'
-                    buttonTwoClassName='button button-orange'
+                    buttonTwoClassName='modal-btn button-yellow'
                     handleButtonTwoClick={handleRestartGame}
                     buttonTwoText='Yes, restart'
                 />}
