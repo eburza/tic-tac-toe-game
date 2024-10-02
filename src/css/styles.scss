@@ -99,7 +99,7 @@ body {
 }
   
 #modal-content {
-    @include display-flex(column, center, center, 1rem);
+    @include display-flex(column, center, center, 0.5rem);
     background-color: $semi-dark-navy;
     padding: 1.5rem;
 }
@@ -110,6 +110,8 @@ body {
 }
 
 #modal-content .modal-head {
+    display: flex;
+    align-items: center;
     @include heading-l;
     color: $silver;
 }
@@ -140,6 +142,11 @@ body {
 #modal-content .button-yellow {
     background-color: $light-yellow;
     @include shadow(#CC8B13)
+}
+
+#modal-content #modal-head-img {
+    transform: scale(0.7);
+    margin: 0 0.5rem 0 0;
 }
 
 /* game start */
