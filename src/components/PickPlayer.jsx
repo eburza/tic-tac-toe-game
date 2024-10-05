@@ -13,15 +13,17 @@ export default function PickPlayer() {
     }, [onSetPlayer])
 
     return (
-        <div id='pick-player-component'>
+        <div id='pick-player-component' data-testid='pick-player-component'>
             <p id='pick-player-text-top'>Pick player 1&apos;s mark</p>
             <div id='set-player'>
                 <button 
+                data-testid='player-X'
                 onClick={() => handlePlayerChange(true)} 
                 className={`player-button ${state.playerX ? 'selected' : 'inactive'}`}>
                     <img src={playerXblack} alt={PLAYER_X} className={`pick-player-img ${state.playerX ? 'img-selected' : 'img-inactive'}`}/>
                 </button>
                 <button 
+                data-testid='player-O'
                 onClick={() => handlePlayerChange(false)} 
                 className={`player-button ${!state.playerX ? 'selected' : 'inactive'}`}>
                     <img src={playerOblack} alt={PLAYER_O} className={`pick-player-img ${!state.playerX ? 'img-selected' : 'img-inactive'}`}/>
