@@ -1,0 +1,87 @@
+@import 'functions.scss';
+
+/* game board */
+#game-on {
+    @include display-flex(column, center, center, 1rem)
+}
+
+#game-header {
+    @include display-flex(initial, space-between, center, initial);
+    width: 100%;
+}
+
+#player-turn {
+    @include display-flex(initial, space-between, center, 0.5rem);
+    @include heading-xs;
+    @include shadow(#10212A);
+    background-color: $semi-dark-navy;
+    color: $silver;
+    border-radius: $radius;
+    padding: 0.4rem 0.75rem 0.9rem;
+}
+
+#player-turn img {
+    transform: scale(0.4);
+    margin: -1rem;
+    filter: invert(91%) sepia(6%) saturate(897%) hue-rotate(164deg) brightness(83%) contrast(87%);
+}
+
+#restart-button {
+    @include display-flex(initial, center, center, 0);
+    @include shadow(#6B8997);
+    background-color: $silver;
+    border-radius: $radius;
+    padding: 0.75rem 0.75rem 1rem;
+}
+
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.game-tile {
+    @include shadow(#10212A);
+    background-color: $semi-dark-navy;
+    width: 6rem;
+    height: 6.6rem;
+    flex-shrink: 0;
+    border-radius: $radius;
+    border: none;
+}
+
+#results {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    width: 100%;
+}
+
+#results .result-element {
+    @include display-flex(column, center, center, 0.75rem);
+    color: $dark-navy;
+    border-radius: $radius;
+    padding: 0.5rem;
+}
+
+#results #result-x {
+    background-color: $light-blue; 
+}
+
+#results #result-tie {
+    background-color: $silver; 
+}
+
+#results #result-o {
+    background-color: $light-yellow; 
+}
+
+#results .result-text-top {
+    @include sub-head;
+    margin: -0.25rem;
+}
+
+#results .result-text-counter {
+    @include heading-m;
+    margin: -0.4rem;
+}

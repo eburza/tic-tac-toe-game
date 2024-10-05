@@ -1,0 +1,62 @@
+@import 'functions.scss';
+
+/* modal */
+#modal {
+    display: block;
+    padding: 40% 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+  
+#modal-content {
+    @include display-flex(column, center, center, 0.5rem);
+    background-color: $semi-dark-navy;
+    padding: 1.5rem;
+}
+
+#modal-content #modal-subhead {
+    @include heading-xs;
+    color: $silver;
+}
+
+#modal-content .modal-head {
+    display: flex;
+    align-items: center;
+    @include heading-l;
+    color: $silver;
+}
+
+#modal-content #modal-head-x{
+    color: $light-blue;
+}
+
+#modal-content #modal-head-o{
+    color: $light-yellow;
+}
+
+#modal-buttons {
+    @include display-flex(initial, center, center, 1rem)
+}
+
+#modal-content .modal-btn {
+    border-radius: 0.63rem;
+    padding: 0.5rem 1rem 1rem; 
+    color: $dark-navy;
+}
+
+#modal-content .button-silver {
+    background-color: $silver;
+    @include shadow(#6B8997)
+}
+
+#modal-content .button-yellow {
+    background-color: $light-yellow;
+    @include shadow(#CC8B13)
+}
+
+#modal-content #modal-head-img {
+    transform: scale(0.7);
+    margin: 0 0.5rem 0 0;
+}

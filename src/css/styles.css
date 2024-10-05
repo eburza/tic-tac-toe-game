@@ -1,41 +1,5 @@
 /* functions */
-/* base */
-* {
-  box-sizing: border-box;
-  font-feature-settings: "liga" off, "clig" off;
-  font-family: Outfit;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  text-transform: uppercase;
-  margin: 0;
-}
-
-body {
-  display: flex;
-  flex-direction: initial;
-  justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
-  margin: 0;
-  height: 100vh;
-  width: 100vw;
-  background-color: #1A2A33;
-  position: relative;
-}
-
-#game {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 2.5rem;
-}
-
-button {
-  cursor: pointer;
-}
-
+/* functions */
 /* modal */
 #modal {
   display: block;
@@ -109,6 +73,7 @@ button {
   margin: 0 0.5rem 0 0;
 }
 
+/* functions */
 /* game start */
 #pick-player-component {
   display: flex;
@@ -207,6 +172,7 @@ button {
   background-color: #31C3BD;
 }
 
+/* functions */
 /* game board */
 #game-on {
   display: flex;
@@ -318,6 +284,43 @@ button {
   letter-spacing: 0.094rem;
   margin: 0;
   margin: -0.4rem;
+}
+
+/* base */
+* {
+  box-sizing: border-box;
+  font-feature-settings: "liga" off, "clig" off;
+  font-family: Outfit;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: initial;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #1A2A33;
+  position: relative;
+}
+
+#game {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+button {
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=styles.css.map */

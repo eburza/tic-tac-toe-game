@@ -1,0 +1,80 @@
+@import 'functions.scss';
+
+/* game start */
+#pick-player-component {
+    @include display-flex(column, center, center, 1.25rem);
+    background-color: $semi-dark-navy;
+    color: $silver;
+    border-radius: $radius;
+    padding: $padding;
+}
+
+#pick-player-text-top {
+    @include heading-xs;
+}
+
+#pick-player-text-bottom {
+    @include sub-head;
+}
+
+#set-player {
+    @include shadow(#10212A);
+    @include display-flex(initial, initial, center, 0.5rem);
+    background-color: $dark-navy;
+    border-radius: $radius;
+    padding: 0.75rem 0.75rem 0.55rem;
+}
+
+#set-player .player-button{
+    cursor: pointer;
+    border-radius: $radius;
+    border: none;
+    padding: 0.25rem 3.5rem;
+    transition: 0.3s ease all;
+    margin-bottom: 8px;
+    height: 100%;
+}
+
+#set-player .inactive {
+    background-color: transparent;
+}
+
+#set-player .selected {
+    background-color: $silver;
+}
+
+#set-player .pick-player-img {
+    margin: 0;
+    transform: scale(0.75);
+}
+
+#set-player .img-selected {
+    filter: invert(12%) sepia(49%) saturate(446%) hue-rotate(157deg) brightness(95%) contrast(92%);
+}
+
+#set-player .img-inactive {
+    filter: invert(96%) sepia(2%) saturate(1841%) hue-rotate(171deg) brightness(101%) contrast(86%);
+}
+
+#start-game-btn {
+    @include display-flex(column, center, center, 1.25rem);
+    width: 100%;
+}
+
+#start-game-btn .new-game-button {
+    @include heading-s;
+    width: 100%;
+    padding: 1rem 0 1.5rem 0;
+    border-radius: $radius;
+    color: $dark-navy;
+}
+
+#start-game-btn #button-start-cpu {
+    @include shadow(#CC8B13);
+    background-color: $light-yellow;
+}
+
+#start-game-btn #button-start-player {
+    @include shadow(#118C87);
+    background-color: $light-blue;
+}
