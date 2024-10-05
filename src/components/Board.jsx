@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect } from 'react'
+import { useCallback, useContext, useEffect, useMemo } from 'react'
 import GameContext from '../Context'
 import Tile from './Tile'
 
@@ -20,15 +20,20 @@ export default function Board() {
         }
     }, [state.board, onMakeMove, state.gameWinner])
 
-    const boardTiles = state.board.map( tileEl => (
-        <Tile 
-            key={`tile-${tileEl.id}`}
-            id={`tile-${tileEl.id}`}
-            isHeld={tileEl.isHeld}
-            handleClick={() => handleChange(tileEl.id)}
-            tileContent={tileEl.content || ''}
-        />
-    ))
+    const boardTiles = useMemo( () => {
+        return(
+            state.board.map( tileEl => (
+                <Tile 
+                key={`tile-${tileEl.id}`}
+                id={`tile-${tileEl.id}`}
+                isHeld={tileEl.isHeld}
+                handleClick={() => handleChange(tileEl.id)}
+                tileContent={tileEl.content || ''}
+                />
+            ))
+        )
+
+    }, [state.board, handleChange, state.gameOn])
 
     return (
         <section id="game-board">
