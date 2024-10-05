@@ -22,26 +22,19 @@ describe('pick player component', () => {
         expect(getAllByRole('button')).toHaveLength(2)
     })
     test('calls onSetPlayer when X button is clicked', () => {
-        const customMockContext = {
-            ...mockGameContext,
-            onSetPlayer: jest.fn()
-        }
+
         const {getByTestId} = renderWithProvider(<PickPlayer id='test-pick-x-player' />, {
-            providerProps: customMockContext
+            providerProps: mockGameContext
         })
         fireEvent.click(getByTestId('player-X'))
-        expect(customMockContext.onSetPlayer).toHaveBeenCalledWith(true)
+        expect(mockGameContext.onSetPlayer).toHaveBeenCalledWith(true)
     })
     test('calls onSetPlayer when O button is clicked', () => {
-        const customMockContext = {
-            ...mockGameContext,
-            onSetPlayer: jest.fn()
-        }
         const {getByTestId} = renderWithProvider(<PickPlayer id='test-pick-o-player' />, {
-            providerProps: customMockContext 
+            providerProps: mockGameContext 
         })
         fireEvent.click(getByTestId('player-O'))
-        expect(customMockContext.onSetPlayer).toHaveBeenCalledWith(false)
+        expect(mockGameContext.onSetPlayer).toHaveBeenCalledWith(false)
     })
     
 })
