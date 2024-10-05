@@ -21,9 +21,7 @@ const GameContext = createContext({
     onRestartGame: () => {},
     onStartGame: () => {},
     onMakeMove: () => {},
-    onGetWinner: () => {},
-    onUpdateScore: () => {},
-    onCheckGameWinner: () => {},
+    onMakeCpuMove: () => {},
     onSetPlayer: () => {},
     onToggleModal: () => {}
 })
