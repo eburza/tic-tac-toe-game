@@ -29,3 +29,14 @@ eslint.config.js
 src/TextContent.jsx
 
 svg-inject.js
+
+jest.config.cjs
+jest.setup.js
+babel.config.cjs
+jsconfig.json
+_mocks_
+
+.eslintrc.js
+.eslintignore
+
+settings.json

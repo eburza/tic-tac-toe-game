@@ -14,9 +14,9 @@ export default function Tile({ handleClick, tileContent, id, isHeld}) {
         disabled={isHeld}>
                     {
         tileContent === PLAYER_X ? 
-        <img src={playerXtile}/> :
+        <img src={playerXtile} alt={PLAYER_X}/> :
         tileContent === PLAYER_O ?
-        <img src={playerOtile}/> :
+        <img src={playerOtile} alt={PLAYER_O}/> :
         ''
         }
         </button>
