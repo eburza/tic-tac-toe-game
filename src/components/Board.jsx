@@ -21,11 +21,14 @@ export default function Board() {
     }, [state.board, onMakeMove, state.gameWinner])
 
     const boardTiles = useMemo( () => {
+        if (!state || !state.board) return null
+
         return(
             state.board.map( tileEl => (
                 <Tile 
                 key={`tile-${tileEl.id}`}
                 id={`tile-${tileEl.id}`}
+                data-testid={`tile-${tileEl.id}`}
                 isHeld={tileEl.isHeld}
                 handleClick={() => handleChange(tileEl.id)}
                 tileContent={tileEl.content || ''}
@@ -33,10 +36,10 @@ export default function Board() {
             ))
         )
 
-    }, [state.board, handleChange, state.gameOn])
+    }, [state, state.board, handleChange, state.gameOn])
 
     return (
-        <section id="game-board">
+        <section id="game-board" data-testid='game-board-component'>
             {boardTiles}
         </section>
     )

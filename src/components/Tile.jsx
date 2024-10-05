@@ -4,14 +4,15 @@ import playerOtile from '../assets/icon-o.svg'
 import { PLAYER_X, PLAYER_O } from '../states/gameConstants'
 
 
-export default function Tile({ handleClick, tileContent, id, isHeld}) {
+export default function Tile({ handleClick, tileContent, id, isHeld, ...props}) {
 
     return(
         <button 
         id={id}
         className='game-tile'
         onClick={handleClick}
-        disabled={isHeld}>
+        disabled={isHeld}
+        {...props}>
                     {
         tileContent === PLAYER_X ? 
         <img src={playerXtile} alt={PLAYER_X}/> :
