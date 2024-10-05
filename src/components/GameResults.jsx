@@ -1,6 +1,8 @@
 import ResultElement from './ResultElement'
 import { useCallback, useContext } from 'react'
 import GameContext from '../Context'
+import { PLAYER_X, PLAYER_O, TIE, } from '../states/gameConstants'
+
 
 export default function GameResults() {
 
@@ -49,18 +51,18 @@ export default function GameResults() {
     return(
         <section id='results'>
             <ResultElement 
-                text='X'
+                text={PLAYER_X}
                 player={checkXPlayer()}
                 counter={state.playerXScore}
                 id='result-x'
             />
             <ResultElement 
-                text='TIES'
+                text={TIE}
                 counter={state.tiesScore}
                 id='result-tie'
             />
             <ResultElement 
-                text='O'
+                text={PLAYER_O}
                 player={checkOPlayer()}
                 counter={state.playerOScore}
                 id='result-o'

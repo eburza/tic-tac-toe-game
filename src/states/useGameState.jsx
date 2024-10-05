@@ -1,5 +1,7 @@
 import { useReducer, useCallback } from 'react'
 import { winPattern } from '../data/winPattern'
+import { PLAYER_X, PLAYER_O, TIE, } from './gameConstants';
+
 
 const ACTIONS = {
     START_GAME: 'START_GAME',
@@ -34,7 +36,7 @@ function checkGameWinner(board) {
       }
     }
     if (board.every(tile => tile.isHeld)) {
-      return 'TIE'
+      return TIE
     }
     return null
 }
@@ -91,7 +93,7 @@ function gameReducer(state, action) {
         case ACTIONS.MAKE_MOVE: {
             let newBoard = state.board.map(tile => 
                 tile.id === action.payload.tileId ?
-                { ...tile, isHeld: true, content: state.isXTurn ? 'X' : "O"} :
+                { ...tile, isHeld: true, content: state.isXTurn ? PLAYER_X : PLAYER_O} :
                 tile
               )
               
@@ -103,9 +105,9 @@ function gameReducer(state, action) {
                 board: newBoard,
                 gameWinner: winner,
                 modalState: winner ? true : false,
-                playerXScore: winner === 'X' ? state.playerXScore + 1 : state.playerXScore,
-                playerOScore: winner === 'O' ? state.playerOScore + 1 : state.playerOScore,
-                tiesScore: winner === 'TIE' ? state.tiesScore + 1 : state.tiesScore
+                playerXScore: winner === PLAYER_X ? state.playerXScore + 1 : state.playerXScore,
+                playerOScore: winner === PLAYER_O ? state.playerOScore + 1 : state.playerOScore,
+                tiesScore: winner === TIE ? state.tiesScore + 1 : state.tiesScore
               }
         }
 
@@ -113,7 +115,7 @@ function gameReducer(state, action) {
             const cpuMoveId = makeCpuMove(state.board)
             let newBoard = state.board.map(tile => 
                 tile.id === cpuMoveId ?
-                { ...tile, isHeld: true, content: state.isXTurn ? 'X' : "O"} :
+                { ...tile, isHeld: true, content: state.isXTurn ? PLAYER_X : PLAYER_O} :
                 tile
             )
             
@@ -125,9 +127,9 @@ function gameReducer(state, action) {
                 board: newBoard,
                 gameWinner: winner,
                 modalState: winner ? true : false,
-                playerXScore: winner === 'X' ? state.playerXScore + 1 : state.playerXScore,
-                playerOScore: winner === 'O' ? state.playerOScore + 1 : state.playerOScore,
-                tiesScore: winner === 'TIE' ? state.tiesScore + 1 : state.tiesScore
+                playerXScore: winner === PLAYER_X ? state.playerXScore + 1 : state.playerXScore,
+                playerOScore: winner === PLAYER_O ? state.playerOScore + 1 : state.playerOScore,
+                tiesScore: winner === TIE ? state.tiesScore + 1 : state.tiesScore
             }
         }
 

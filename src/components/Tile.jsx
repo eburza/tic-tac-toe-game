@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types'
 import playerXtile from '../assets/icon-x.svg'
 import playerOtile from '../assets/icon-o.svg'
+import { PLAYER_X, PLAYER_O } from '../states/gameConstants'
+
 
 export default function Tile({ handleClick, tileContent, id, isHeld}) {
 
@@ -11,9 +13,9 @@ export default function Tile({ handleClick, tileContent, id, isHeld}) {
         onClick={handleClick}
         disabled={isHeld}>
                     {
-        tileContent === 'X'? 
+        tileContent === PLAYER_X ? 
         <img src={playerXtile}/> :
-        tileContent === 'O' ?
+        tileContent === PLAYER_O ?
         <img src={playerOtile}/> :
         ''
         }

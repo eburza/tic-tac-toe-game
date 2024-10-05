@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import GameContext from './Context'
-import useGameState from './functions/useGameState'
+import useGameState from './states/useGameState'
 import { boardArray } from './data/boardArray'
 import Logo from './assets/logo.svg'
 import GameStart from './GameStart'

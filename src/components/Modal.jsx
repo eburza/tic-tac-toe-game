@@ -1,6 +1,8 @@
 import { useCallback, useContext } from 'react'
 import GameContext from '../Context'
 import ModalElement from './ModalElement'
+import { PLAYER_X, PLAYER_O, TIE, } from '../states/gameConstants'
+
 
 export default function Modal() {
 
@@ -24,11 +26,11 @@ export default function Modal() {
 
     return (
         <div id='modal' style={state.modalState ? {display:'block'} : {}}>
-            {state.gameWinner === 'X' || state.gameWinner === 'O' || state.gameWinner === 'TIE' ? 
+            {state.gameWinner === PLAYER_X || state.gameWinner === PLAYER_O|| state.gameWinner === TIE ? 
                  <ModalElement 
-                    subHeadText={state.playerX && state.gameWinner === 'X' ? 'You won!' : state.gameWinner === 'TIE'? '' : 'OH NO, YOU LOST…' }
-                    headText={state.gameWinner === 'X' || state.gameWinner === 'O' ? `takes the round` : state.gameWinner === 'TIE' ? `Round tied` : ''}
-                    headTextId={state.gameWinner === 'X' ? 'modal-head-x' : state.gameWinner === 'O' ? 'modal-head-o' : ''}
+                    subHeadText={state.playerX && state.gameWinner === PLAYER_X ? 'You won!' : state.gameWinner === TIE ? '' : 'OH NO, YOU LOST…' }
+                    headText={state.gameWinner === PLAYER_X || state.gameWinner === PLAYER_O ? `takes the round` : state.gameWinner === TIE ? `Round tied` : ''}
+                    headTextId={state.gameWinner === PLAYER_X ? 'modal-head-x' : state.gameWinner === PLAYER_O ? 'modal-head-o' : ''}
                     buttonOneId='quit-game-button'
                     buttonOneClassName='modal-btn button-silver'
                     handleButtonOneClick={handleQuitGame}
