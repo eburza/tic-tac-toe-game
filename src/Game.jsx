@@ -4,12 +4,12 @@ import ResetButton from './components/ResetButton'
 import GameResults from './components/GameResults'
 import Logo from './assets/logo.svg'
 
-export default function Game() {
+export default function Game(props) {
 
     return (
-        <section id='game-on'>
+        <section id='game-on' data-testid={props['data-testid']}>
             <div id='game-header'>
-                <img src={Logo} alt="Tic Tac Toe logo"/>
+                <img src={Logo} alt="Tic Tac Toe"/>
                 <PlayerTurn />
                 <ResetButton />
             </div>

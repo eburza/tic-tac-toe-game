@@ -3,7 +3,7 @@ import GameContext from '../Context'
 import ModalElement from './ModalElement'
 import { PLAYER_X, PLAYER_O, TIE, } from '../states/gameConstants'
 
-export default function Modal() {
+export default function Modal(props) {
 
     const { state, onQuitGame, onNewRound, onCancelRestartGame, onRestartGame } = useContext(GameContext)
 
@@ -28,7 +28,7 @@ export default function Modal() {
     }
 
     return (
-        <div id='modal' style={state.modalState ? {display:'block'} : {}}>
+        <div id='modal' style={state.modalState ? {display:'block'} : {}} data-testid={props['data-testid']}>
             {state.gameWinner === PLAYER_X || state.gameWinner === PLAYER_O|| state.gameWinner === TIE ? 
                  <ModalElement 
                     subHeadText={state.playerX && state.gameWinner === PLAYER_X ? 'You won!' : state.gameWinner === TIE ? '' : 'OH NO, YOU LOST…' }
