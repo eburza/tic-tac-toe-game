@@ -3,7 +3,6 @@ import GameContext from '../Context'
 import ModalElement from './ModalElement'
 import { PLAYER_X, PLAYER_O, TIE, } from '../states/gameConstants'
 
-
 export default function Modal() {
 
     const { state, onQuitGame, onNewRound, onCancelRestartGame, onRestartGame } = useContext(GameContext)
@@ -24,6 +23,10 @@ export default function Modal() {
         onRestartGame()
     }, [onRestartGame])
 
+    if (!state.modalState) {
+        return null;
+    }
+
     return (
         <div id='modal' style={state.modalState ? {display:'block'} : {}}>
             {state.gameWinner === PLAYER_X || state.gameWinner === PLAYER_O|| state.gameWinner === TIE ? 
@@ -39,6 +42,7 @@ export default function Modal() {
                     buttonTwoClassName='modal-btn button-yellow'
                     handleButtonTwoClick={handleNewRound}
                     buttonTwoText='Next round'
+                    data-testid='modal'
                  /> :
                  <ModalElement 
                     headText='Restart game?'
@@ -51,6 +55,7 @@ export default function Modal() {
                     buttonTwoClassName='modal-btn button-yellow'
                     handleButtonTwoClick={handleRestartGame}
                     buttonTwoText='Yes, restart'
+                    data-testid='modal'
                 />}
         </div>
     )

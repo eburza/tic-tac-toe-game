@@ -8,7 +8,7 @@ const mockGameContext = {
       gameOn: true,
       gameCpu: false,
       gamePlayer: false,
-      modalState: false,
+      modalState: true,
       playerX: true,
       isXTurn: true,
       gameWinner: '',

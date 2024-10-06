@@ -7,25 +7,27 @@ import playerO from '../assets/icon-o.svg'
 import { PLAYER_X, PLAYER_O, } from '../states/gameConstants'
 
 
-export default function ModalElement( {subHeadText, headText, buttonOneId, buttonTwoId, buttonOneClassName, buttonTwoClassName, handleButtonOneClick, handleButtonTwoClick, buttonOneText, buttonTwoText, headTextId}) {
+export default function ModalElement( {subHeadText, headText, buttonOneId, buttonTwoId, buttonOneClassName, buttonTwoClassName, handleButtonOneClick, handleButtonTwoClick, buttonOneText, buttonTwoText, headTextId, ...props}) {
     
     const { state } = useContext(GameContext)
 
     return(
-        <div id='modal-content'>
+        <div id='modal-content' {...props}>
             { subHeadText && <p id='modal-subhead'>{subHeadText}</p>}
             <h1 id={headTextId} className='modal-head'>
                 {state.gameWinner !== '' && <img id='modal-head-img' src={state.gameWinner === PLAYER_X ? playerX : state.gameWinner === PLAYER_O ? playerO : ''}/>}
                 {headText}
             </h1>
-            <div id='modal-buttons'>
+            <div id='modal-buttons' data-testid='modal-buttons'>
                 <Button 
-                    id={buttonOneId} 
+                    id={buttonOneId}
+                    data-testid={`button-${buttonOneId}`}
                     buttonClass={buttonOneClassName} 
                     handleClick={handleButtonOneClick}
                     buttonText={buttonOneText}/>
                 <Button 
                     id={buttonTwoId} 
+                    data-testid={`button-${buttonTwoId}`}
                     buttonClass={buttonTwoClassName} 
                     handleClick={handleButtonTwoClick}
                     buttonText={buttonTwoText}/>
