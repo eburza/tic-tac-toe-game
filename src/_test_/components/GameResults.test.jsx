@@ -1,9 +1,8 @@
-import { render, fireEvent } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { renderWithProvider } from '../utilis/test-utils'
 import { mockGameContext } from '../utilis/test-mockGameContext'
 import GameResults from '../../components/GameResults'
-import { PLAYER_X, PLAYER_O, TIE, } from '../../states/gameConstants'
 
 
 describe('renders game results', () => {
