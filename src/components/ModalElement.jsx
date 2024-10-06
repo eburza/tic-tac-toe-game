@@ -21,13 +21,11 @@ export default function ModalElement( {subHeadText, headText, buttonOneId, butto
             <div id='modal-buttons' data-testid='modal-buttons'>
                 <Button 
                     id={buttonOneId}
-                    data-testid={`button-${buttonOneId}`}
                     buttonClass={buttonOneClassName} 
                     handleClick={handleButtonOneClick}
                     buttonText={buttonOneText}/>
                 <Button 
                     id={buttonTwoId} 
-                    data-testid={`button-${buttonTwoId}`}
                     buttonClass={buttonTwoClassName} 
                     handleClick={handleButtonTwoClick}
                     buttonText={buttonTwoText}/>
