@@ -7,7 +7,7 @@ import Logo from './assets/logo.svg'
 export default function Game(props) {
 
     return (
-        <section id='game-on' data-testid={props['data-testid']}>
+        <section id='game-on' data-testid='game-on'>
             <div id='game-header'>
                 <img src={Logo} alt="Tic Tac Toe"/>
                 <PlayerTurn />
