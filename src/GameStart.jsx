@@ -3,7 +3,7 @@ import GameContext from './Context'
 import PickPlayer from './components/PickPlayer'
 import Button from './components/Button'
 
-export default function GameStart(props) {
+export default function GameStart() {
 
     const {onStartGame} = useContext(GameContext)
 
@@ -16,7 +16,7 @@ export default function GameStart(props) {
     }
 
     return (
-        <section data-testid={props['data-testid']}>
+        <section data-testid='game-start'>
             <PickPlayer />
             <div id='start-game-btn'>
                 <Button 

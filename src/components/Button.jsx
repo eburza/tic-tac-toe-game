@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 
-export default function Button({ buttonText, buttonClass, buttonId, handleClick }) {
+export default function Button({ buttonText, buttonClass, buttonId, handleClick, props }) {
 
     return (
-        <button id={buttonId} className={buttonClass} onClick={handleClick}>{buttonText}</button>
+        <button id={buttonId} className={buttonClass} onClick={handleClick} {...props}>{buttonText}</button>
     )
 }
 

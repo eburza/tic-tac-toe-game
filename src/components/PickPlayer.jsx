@@ -4,7 +4,7 @@ import { PLAYER_X, PLAYER_O, } from '../states/gameConstants'
 import playerXblack from '../assets/icon-x-black.svg'
 import playerOblack from '../assets/icon-o-black.svg'
 
-export default function PickPlayer() {
+export default function PickPlayer(props) {
 
     const { state, onSetPlayer } = useContext(GameContext)
 
@@ -13,7 +13,7 @@ export default function PickPlayer() {
     }, [onSetPlayer])
 
     return (
-        <div id='pick-player-component' data-testid='pick-player-component'>
+        <div id='pick-player-component' data-testid='pick-player-component' {...props}>
             <p id='pick-player-text-top'>Pick player 1&apos;s mark</p>
             <div id='set-player'>
                 <button 
