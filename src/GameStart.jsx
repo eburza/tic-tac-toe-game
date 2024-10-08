@@ -16,7 +16,7 @@ export default function GameStart() {
     }
 
     return (
-        <section data-testid='game-start'>
+        <section data-testid='game-start' id='game-start'>
             <PickPlayer />
             <div id='start-game-btn'>
                 <Button 

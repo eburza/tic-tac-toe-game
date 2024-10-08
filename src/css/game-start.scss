@@ -1,6 +1,10 @@
 @import 'functions.scss';
 
 /* game start */
+#game-start {
+    @include display-flex(column, center, center, 2.5rem);
+}
+
 #pick-player-component {
     @include display-flex(column, center, center, 1.25rem);
     background-color: $semi-dark-navy;

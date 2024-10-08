@@ -75,6 +75,14 @@
 
 /* functions */
 /* game start */
+#game-start {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+}
+
 #pick-player-component {
   display: flex;
   flex-direction: column;
