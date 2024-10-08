@@ -4,7 +4,7 @@ import ResetButton from './components/ResetButton'
 import GameResults from './components/GameResults'
 import Logo from './assets/logo.svg'
 
-export default function Game(props) {
+export default function Game() {
 
     return (
         <section id='game-on' data-testid='game-on'>

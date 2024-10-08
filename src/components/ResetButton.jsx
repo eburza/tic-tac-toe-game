@@ -12,6 +12,7 @@ export default function ResetGame() {
 
     return(
         <button id='restart-button'
+        data-testid='restart-button'
         onClick={handleResetButton}>
             <img src={restartButtonImg}/>
         </button>

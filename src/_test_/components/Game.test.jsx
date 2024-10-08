@@ -10,4 +10,24 @@ describe('render game on', () => {
         const {getByTestId} = render(<Game />)
         expect(getByTestId('game-on')).toBeInTheDocument()
     })
+    test('renders correctly', () => {
+        const {getByAltText} = render(<Game />)
+        expect(getByAltText('Tic Tac Toe')).toBeInTheDocument()
+    })
+    test('renders correctly', () => {
+        const {getByTestId} = render(<Game />)
+        expect(getByTestId('player-turn')).toBeInTheDocument()
+    })
+    test('renders correctly', () => {
+        const {getByTestId} = render(<Game />)
+        expect(getByTestId('restart-button')).toBeInTheDocument()
+    })
+    test('renders correctly', () => {
+        const {getByTestId} = render(<Game />)
+        expect(getByTestId('game-board-component')).toBeInTheDocument()
+    })
+    test('renders correctly', () => {
+        const {getByTestId} = render(<Game />)
+        expect(getByTestId('game-results')).toBeInTheDocument()
+    })
 })
