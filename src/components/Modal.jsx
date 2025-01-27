@@ -31,7 +31,7 @@ export default function Modal(props) {
         <div id='modal' style={state.modalState ? {display:'block'} : {}} data-testid={props['data-testid']}>
             {state.gameWinner === PLAYER_X || state.gameWinner === PLAYER_O|| state.gameWinner === TIE ? 
                  <ModalElement 
-                    subHeadText={state.playerX && state.gameWinner === PLAYER_X ? 'You won!' : state.gameWinner === TIE ? '' : 'OH NO, YOU LOST…' }
+                    subHeadText={(state.playerX && state.gameWinner === PLAYER_X) || (!state.playerX && state.gameWinner === PLAYER_O) ? 'You won!' : state.gameWinner === TIE ? '' : 'OH NO, YOU LOST…' }
                     headText={state.gameWinner === PLAYER_X || state.gameWinner === PLAYER_O ? `takes the round` : state.gameWinner === TIE ? `Round tied` : ''}
                     headTextId={state.gameWinner === PLAYER_X ? 'modal-head-x' : state.gameWinner === PLAYER_O ? 'modal-head-o' : ''}
                     buttonOneId='quit-game-button'
