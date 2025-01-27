@@ -12,7 +12,7 @@ export default function Tile({ handleClick, tileContent, id, isHeld, ...props}) 
     const { state } = useContext(GameContext)
 
     const handleMouseEnter = () => {
-        if (!isHeld) {
+        if (!isHeld && !isCpuTurn) {
             setIsHovered(true)
         }
     }
@@ -21,12 +21,17 @@ export default function Tile({ handleClick, tileContent, id, isHeld, ...props}) 
         setIsHovered(false)
     }
 
+    const isCpuTurn = state.gameCpu && (
+        (state.playerX && !state.isXTurn) || 
+        (!state.playerX && state.isXTurn)
+    )
+
     return(
         <button 
         id={id}
         className='game-tile'
         onClick={handleClick}
-        disabled={isHeld}
+        disabled={isHeld || isCpuTurn}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         {...props}>
