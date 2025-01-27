@@ -42,11 +42,55 @@ function checkGameWinner(board) {
 }
 
 function makeCpuMove(board) {
-    const availableTile = board.filter(tile => !tile.isHeld).map(tile => tile.id)
-    const randomIndex = Math.floor(Math.random() * availableTile.length)
-    return availableTile[randomIndex]
+    const cpuSymbol = board.find(tile => tile.isHeld)?.content || 'X'
+    const playerSymbol = cpuSymbol === 'X' ? 'O' : 'X'
+    
+    const wouldWin = (symbol, position) => {
+        const simulatedBoard = board.map(tile => ({
+            ...tile,
+            content: tile.id === position ? symbol : tile.content
+        }))
+        
+        for (let [a, b, c] of winPattern) {
+            if (simulatedBoard[a].content === symbol && 
+                simulatedBoard[b].content === symbol && 
+                simulatedBoard[c].content === symbol) {
+                return true
+            }
+        }
+        return false
+    }
 
-  }
+    const availableMoves = board.filter(tile => !tile.isHeld).map(tile => tile.id)
+    
+    for (let move of availableMoves) {
+        if (wouldWin(cpuSymbol, move)) {
+            return move
+        }
+    }
+    
+    for (let move of availableMoves) {
+        if (wouldWin(playerSymbol, move)) {
+            return move
+        }
+    }
+    
+    if (availableMoves.includes(4)) {
+        return 4
+    }
+    
+    const corners = [0, 2, 6, 8].filter(corner => availableMoves.includes(corner))
+    if (corners.length > 0) {
+        return corners[Math.floor(Math.random() * corners.length)]
+    }
+    
+    const edges = [1, 3, 5, 7].filter(edge => availableMoves.includes(edge))
+    if (edges.length > 0) {
+        return edges[Math.floor(Math.random() * edges.length)]
+    }
+    
+    return availableMoves[Math.floor(Math.random() * availableMoves.length)]
+}
 
 function gameReducer(state, action) {
     switch(action.type) {
