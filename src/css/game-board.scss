@@ -51,19 +51,27 @@
     flex-shrink: 0;
     border-radius: $radius;
     border: none;
-    padding: 1rem;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     
     img {
-        width: 50px;
-        height: 50px;
+        width: 64px;
+        height: 64px;
         object-fit: contain;
     }
     
     &:not(:disabled) {
         cursor: pointer;
+        
+        &:hover {
+            background-color: rgba($semi-dark-navy, 0.95);
+            
+            img {
+                opacity: 0.9;
+            }
+        }
     }
     
     &:disabled {
