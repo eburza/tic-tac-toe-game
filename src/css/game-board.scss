@@ -2,13 +2,14 @@
 
 /* game board */
 #game-on {
-    @include display-flex(column, center, center, 1rem);
+    @include display-flex(column, center, center, 0.75rem);
     width: 100%;
 }
 
 #game-header {
     @include display-flex(initial, space-between, center, initial);
     width: 100%;
+    margin-bottom: 0.5rem;
 }
 
 #player-turn {

@@ -19,7 +19,7 @@ body {
 }
 
 #game {
-    @include display-flex(column, center, center, 2.5rem);
+    @include display-flex(column, center, center, 1.5rem);
     width: min(100%, 460px);
     padding: 1.5rem;
     margin: auto;
