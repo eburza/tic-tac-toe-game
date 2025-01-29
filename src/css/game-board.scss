@@ -50,21 +50,31 @@
     flex-shrink: 0;
     border-radius: $radius;
     border: none;
-    position: relative;
-    transition: all 0.2s ease;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     
-    &:hover {
+    img {
+        width: 64px;
+        height: 64px;
+        object-fit: contain;
+    }
+    
+    &:not(:disabled) {
         cursor: pointer;
-        &::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: $radius;
+        
+        &:hover {
+            background-color: rgba($semi-dark-navy, 0.95);
+            
+            img {
+                opacity: 0.9;
+            }
         }
+    }
+    
+    &:disabled {
+        cursor: not-allowed;
     }
 }
 
