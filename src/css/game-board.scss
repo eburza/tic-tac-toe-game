@@ -2,18 +2,18 @@
 
 /* game board */
 #game-on {
-    @include display-flex(column, center, center, 0.75rem);
+    @include display-flex(column, center, center, 0.5rem);
     width: 100%;
 }
 
 #game-header {
-    @include display-flex(initial, space-between, center, initial);
+    @include display-flex(initial, space-between, center, 0.5rem);
     width: 100%;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
 }
 
 #player-turn {
-    @include display-flex(initial, space-between, center, 0.5rem);
+    @include display-flex(initial, space-between, center, 0.25rem);
     @include heading-xs;
     @include shadow(#10212A);
     background-color: $semi-dark-navy;
@@ -51,14 +51,14 @@
     flex-shrink: 0;
     border-radius: $radius;
     border: none;
-    padding: 0;
+    padding: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     
     img {
-        width: 64px;
-        height: 64px;
+        width: 40px;
+        height: 40px;
         object-fit: contain;
     }
     
@@ -67,10 +67,6 @@
         
         &:hover {
             background-color: rgba($semi-dark-navy, 0.95);
-            
-            img {
-                opacity: 0.9;
-            }
         }
     }
     
