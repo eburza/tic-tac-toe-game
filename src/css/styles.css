@@ -357,6 +357,21 @@ body {
   padding: 1.5rem;
   margin: auto;
 }
+@media (min-width: 768px) {
+  #game {
+    transform: scale(1.2);
+  }
+}
+@media (min-width: 1024px) {
+  #game {
+    transform: scale(1.4);
+  }
+}
+@media (min-width: 1440px) {
+  #game {
+    transform: scale(1.6);
+  }
+}
 
 button {
   cursor: pointer;

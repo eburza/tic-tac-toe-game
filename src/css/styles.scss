@@ -23,6 +23,18 @@ body {
     width: min(100%, 460px);
     padding: 1.5rem;
     margin: auto;
+    
+    @media (min-width: 768px) {
+        transform: scale(1.2);
+    }
+    
+    @media (min-width: 1024px) {
+        transform: scale(1.4);
+    }
+    
+    @media (min-width: 1440px) {
+        transform: scale(1.6);
+    }
 }
 
 button {
