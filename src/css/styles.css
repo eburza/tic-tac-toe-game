@@ -26,9 +26,10 @@
   gap: 1rem;
   background-color: #1F3641;
   padding: 2rem;
-  width: min(100% - 2rem, 460px);
+  width: min(100% - 2rem, 520px);
   margin: 0 auto;
   border-radius: 0.94rem;
+  text-align: center;
 }
 
 #modal-content #modal-subhead {
@@ -41,10 +42,14 @@
 #modal-content .modal-head {
   display: flex;
   align-items: center;
-  font-size: 2.5rem;
-  letter-spacing: 0.156rem;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 1.5rem;
+  letter-spacing: 0.094rem;
   margin: 0;
   color: #A8BFC9;
+  white-space: nowrap;
+  width: 100%;
 }
 
 #modal-content #modal-head-x {
@@ -61,6 +66,7 @@
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  width: 100%;
 }
 
 #modal-content .modal-btn {
@@ -81,7 +87,7 @@
 
 #modal-content #modal-head-img {
   transform: scale(0.7);
-  margin: 0 0.5rem 0 0;
+  margin: 0;
 }
 
 /* functions */
@@ -363,21 +369,46 @@ body {
   width: min(100%, 460px);
   padding: 1.5rem;
   margin: auto;
+  position: relative;
+}
+#game img[src*=logo] {
+  position: relative;
+  z-index: 2;
+}
+#game #game-start {
+  position: relative;
+  z-index: 1;
 }
 @media (min-width: 768px) {
-  #game {
+  #game > *:not(#modal) {
     transform: scale(1.1);
+    transform-origin: center top;
   }
 }
 @media (min-width: 1024px) {
-  #game {
+  #game > *:not(#modal) {
     transform: scale(1.2);
+    transform-origin: center top;
   }
 }
 @media (min-width: 1440px) {
-  #game {
+  #game > *:not(#modal) {
     transform: scale(1.3);
+    transform-origin: center top;
   }
+}
+
+#modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(26, 42, 51, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 button {

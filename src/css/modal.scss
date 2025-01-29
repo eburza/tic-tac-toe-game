@@ -18,9 +18,10 @@
     @include display-flex(column, center, center, 1rem);
     background-color: $semi-dark-navy;
     padding: 2rem;
-    width: min(100% - 2rem, 460px);
+    width: min(100% - 2rem, 520px);
     margin: 0 auto;
     border-radius: $radius;
+    text-align: center;
 }
 
 #modal-content #modal-subhead {
@@ -31,20 +32,25 @@
 #modal-content .modal-head {
     display: flex;
     align-items: center;
-    @include heading-l;
+    justify-content: center;
+    gap: 1rem;
+    @include heading-m;
     color: $silver;
+    white-space: nowrap;
+    width: 100%;
 }
 
-#modal-content #modal-head-x{
+#modal-content #modal-head-x {
     color: $light-blue;
 }
 
-#modal-content #modal-head-o{
+#modal-content #modal-head-o {
     color: $light-yellow;
 }
 
 #modal-buttons {
-    @include display-flex(initial, center, center, 1rem)
+    @include display-flex(initial, center, center, 1rem);
+    width: 100%;
 }
 
 #modal-content .modal-btn {
@@ -65,5 +71,5 @@
 
 #modal-content #modal-head-img {
     transform: scale(0.7);
-    margin: 0 0.5rem 0 0;
+    margin: 0;
 }
