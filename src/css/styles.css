@@ -274,9 +274,6 @@
 .game-tile:not(:disabled) {
   cursor: pointer;
 }
-.game-tile:not(:disabled):hover {
-  background-color: rgba(31, 54, 65, 0.95);
-}
 .game-tile:disabled {
   cursor: not-allowed;
 }

@@ -64,10 +64,6 @@
     
     &:not(:disabled) {
         cursor: pointer;
-        
-        &:hover {
-            background-color: rgba($semi-dark-navy, 0.95);
-        }
     }
     
     &:disabled {
