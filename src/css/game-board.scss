@@ -2,7 +2,8 @@
 
 /* game board */
 #game-on {
-    @include display-flex(column, center, center, 1rem)
+    @include display-flex(column, center, center, 1rem);
+    width: 100%;
 }
 
 #game-header {
@@ -38,16 +39,21 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
+    width: 100%;
 }
 
 .game-tile {
     @include shadow(#10212A);
     background-color: $semi-dark-navy;
-    width: 6rem;
-    height: 6.6rem;
+    width: 100%;
+    aspect-ratio: 1;
     flex-shrink: 0;
     border-radius: $radius;
     border: none;
+    
+    &:hover {
+        opacity: 0.9;
+    }
 }
 
 #results {
