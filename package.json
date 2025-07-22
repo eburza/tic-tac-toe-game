@@ -41,6 +41,6 @@
     "jest-environment-jsdom": "^29.7.0",
     "prettier": "3.3.3",
     "sass": "^1.79.3",
-    "vite": "^5.4.1"
+    "vite": "^7.0.5"
   }
 }
